@@ -24,7 +24,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.example.campus_space"
-    compileSdk flutter.compileSdkVersion
+    compilee flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {

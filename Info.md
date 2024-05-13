@@ -1,10 +1,10 @@
-lib/
-├── screens/
-├── widgets/
-├── services/
-├── view_models/
-├── services/
-└── ...
+lib/  
+├── screens/  
+├── widgets/  
+├── services/  
+├── view_models/  
+├── services/  
+└── ...  
 
 - *lib/*: This is the core directory where your application's source code resides. All the Dart code for your Flutter app goes here.
 

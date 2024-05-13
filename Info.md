@@ -1,3 +1,5 @@
+# Folder stucture to be followed
+
 lib/  
 ├── screens/  
 ├── widgets/  

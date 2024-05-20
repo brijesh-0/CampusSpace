@@ -1,3 +1,4 @@
+import 'package:campus_space/pages/landing.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,34 +11,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Center(
-            child: Text(
-              "CampusSpace",
-            ),
-          ),
-          backgroundColor: Colors.blue,
-          elevation: 10,
-          shadowColor: Colors.black,
-          actions: [IconButton(onPressed: () {}, icon: Icon(Icons.logout))],
-        ),
-        drawer: Drawer(),
-        body: Center(
-          child: Container(
-              height: 300,
-              width: 300,
-              decoration: BoxDecoration(
-                  color: Colors.red[100],
-                  borderRadius: BorderRadius.circular(20)),
-              padding: EdgeInsets.all(25),
-              child: Icon(
-                Icons.favorite,
-                size: 64,
-              )),
-        ),
-      ),
+      debugShowCheckedModeBanner: false,
+      home: LandningPage(),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:campus_space/widgets/venue_card.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key});
@@ -51,6 +52,14 @@ class HomePage extends StatelessWidget {
               ),
             ],
           ),
+          const VenueCard(),
+          const VenueCard(),
+          const VenueCard(),
+          const VenueCard(),
+          const VenueCard(),
+          const VenueCard(),
+          const VenueCard(),
+          const VenueCard(),
         ],
       ),
     );

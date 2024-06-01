@@ -10,7 +10,7 @@ lib/
 
 - *lib/*: This is the core directory where your application's source code resides. All the Dart code for your Flutter app goes here.
 
- - *screens/*: This folder holds the code for different screens or pages that make up your app's user interface (UI). Each screen is typically represented by a separate Dart file containing the widget tree that builds the UI for that screen.
+ - *pages/*: This folder holds the code for different screens or pages that make up your app's user interface (UI). Each screen is typically represented by a separate Dart file containing the widget tree that builds the UI for that screen.
 
  - *widgets/*: This folder stores reusable UI components that can be used across different screens in your app. These can be custom widgets you create or pre-built widgets from Flutter's widget library.
 

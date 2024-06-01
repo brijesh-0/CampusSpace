@@ -7,8 +7,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(15.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      child: ListView(
         children: [
           const Text(
             'Find a Venue',
@@ -19,26 +18,38 @@ class HomePage extends StatelessWidget {
             ),
           ),
           SizedBox(height: 5.0), // Adding some space between text and TextField
-          TextField(
-            onChanged: (value) {
-              print('$value');
-            },
-            cursorColor: Colors.grey,
-            decoration: InputDecoration(
-              fillColor: Colors.white,
-              filled: true,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-                borderSide: const BorderSide(width: 20.0, color: Colors.black),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  onChanged: (value) {
+                    print('$value');
+                  },
+                  cursorColor: Colors.grey,
+                  decoration: InputDecoration(
+                    fillColor: Colors.white,
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      borderSide:
+                          const BorderSide(width: 20.0, color: Colors.black),
+                    ),
+                    hintText: 'Search...',
+                    alignLabelWithHint: true,
+                    hintStyle: TextStyle(color: Colors.grey, fontSize: 14.0),
+                  ),
+                ),
               ),
-              hintText: 'Search...',
-              alignLabelWithHint: true,
-              hintStyle: TextStyle(color: Colors.grey, fontSize: 14.0),
-              suffixIcon: const Padding(
-                padding: EdgeInsets.only(right: 20.0),
-                child: Icon(Icons.search),
-              ), // Corrected icon usage
-            ),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: IconButton(
+                  icon: Icon(Icons.search),
+                  onPressed: () {
+                    print("pressed Search icon");
+                  },
+                ),
+              ),
+            ],
           ),
         ],
       ),

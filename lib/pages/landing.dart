@@ -31,8 +31,12 @@ class _LandningPageState extends State<LandningPage> {
           indicatorColor: Colors.blue[300], //Color(0xFF0066FF),
           selectedIndex: _selectedIndex,
           onDestinationSelected: _navigateBottomBar,
-          destinations: const <Widget>[
-            NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
+          destinations: <Widget>[
+            NavigationDestination(
+                icon: _selectedIndex == 0
+                    ? Icon(Icons.home)
+                    : Icon(Icons.home_outlined),
+                label: 'Home'),
             NavigationDestination(
                 icon: Icon(Icons.event_available), label: 'My Events'),
             NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),

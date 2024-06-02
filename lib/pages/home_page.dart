@@ -7,37 +7,46 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15.0),
       child: ListView(
         children: [
-          const Text(
-            'Find a Venue',
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
+          const Padding(
+            padding: EdgeInsets.only(top: 15.0),
+            child: Text(
+              'Find Your Venue',
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 25.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
-          SizedBox(height: 5.0), // Adding some space between text and TextField
+          const SizedBox(
+              height: 15.0), // Adding some space between text and TextField
           Row(
             children: [
               Expanded(
-                child: TextField(
-                  onChanged: (value) {
-                    print('$value');
-                  },
-                  cursorColor: Colors.grey,
-                  decoration: InputDecoration(
-                    fillColor: Colors.white,
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide:
-                          const BorderSide(width: 20.0, color: Colors.black),
+                child: SizedBox(
+                  height: 50,
+                  child: TextField(
+                    onChanged: (value) {
+                      print('$value');
+                    },
+                    cursorColor: Colors.grey,
+                    decoration: InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      hintText: 'Search...',
+                      alignLabelWithHint: true,
+                      hintStyle: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    hintText: 'Search...',
-                    alignLabelWithHint: true,
-                    hintStyle: TextStyle(color: Colors.grey, fontSize: 14.0),
                   ),
                 ),
               ),

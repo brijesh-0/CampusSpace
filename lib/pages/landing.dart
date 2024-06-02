@@ -26,26 +26,17 @@ class _LandningPageState extends State<LandningPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _navigateBottomBar,
-        selectedItemColor: Colors.blue,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.event_available),
-            label: 'My Events',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
-      ),
-    );
+        body: _pages[_selectedIndex],
+        bottomNavigationBar: NavigationBar(
+          indicatorColor: Colors.blue[300], //Color(0xFF0066FF),
+          selectedIndex: _selectedIndex,
+          onDestinationSelected: _navigateBottomBar,
+          destinations: const <Widget>[
+            NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
+            NavigationDestination(
+                icon: Icon(Icons.event_available), label: 'My Events'),
+            NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
+          ],
+        ));
   }
 }

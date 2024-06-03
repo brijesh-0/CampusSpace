@@ -37,6 +37,7 @@ class _LandningPageState extends State<LandningPage> {
             child: _pages[_selectedIndex]),
         bottomNavigationBar: NavigationBar(
           indicatorColor: const Color.fromARGB(196, 0, 102, 255),
+          height: 75.0,
           backgroundColor:
               const Color.fromARGB(226, 205, 235, 255), //Color(0xFF0066FF),
           selectedIndex: _selectedIndex,

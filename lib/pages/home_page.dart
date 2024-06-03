@@ -11,12 +11,12 @@ class HomePage extends StatelessWidget {
       child: ListView(
         children: [
           const Padding(
-            padding: EdgeInsets.only(top: 15.0),
+            padding: EdgeInsets.only(left: 4.0, top: 15.0),
             child: Text(
               'Find Your Venue',
               textAlign: TextAlign.left,
               style: TextStyle(
-                fontSize: 25.0,
+                fontSize: 24.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget {
             children: [
               Expanded(
                 child: SizedBox(
-                  height: 50,
+                  height: 45,
                   child: TextField(
                     onChanged: (value) {
                       print('$value');
@@ -36,6 +36,8 @@ class HomePage extends StatelessWidget {
                     decoration: InputDecoration(
                       fillColor: Colors.white,
                       filled: true,
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 10.0),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -44,14 +46,14 @@ class HomePage extends StatelessWidget {
                       hintStyle: TextStyle(
                         color: Colors.grey[600],
                         fontSize: 14.0,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 8.0),
+                padding: const EdgeInsets.only(left: 4.0),
                 child: IconButton(
                   icon: Icon(Icons.search),
                   onPressed: () {

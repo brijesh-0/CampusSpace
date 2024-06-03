@@ -9,11 +9,11 @@ class VenueCard extends StatelessWidget {
       padding: const EdgeInsets.only(top: 10.0),
       child: Container(
         width: double.infinity, // Take full width
-        height: 200,
+        height: 190,
         child: Card(
           clipBehavior: Clip.hardEdge, // Clip content at card edges
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0),
+            borderRadius: BorderRadius.circular(20.0),
           ),
           child: Stack(
             children: <Widget>[
@@ -35,7 +35,7 @@ class VenueCard extends StatelessWidget {
                       'Overlay Text',
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: 20,
+                          fontSize: 24,
                           fontWeight: FontWeight.bold),
                     ),
                     Row(
@@ -44,7 +44,7 @@ class VenueCard extends StatelessWidget {
                           Icons.people_alt_rounded,
                           color: Colors.white,
                         ),
-                        Text(' Capasity: over 9000',
+                        Text(' Capacity: 100',
                             style: TextStyle(color: Colors.white))
                       ],
                     )

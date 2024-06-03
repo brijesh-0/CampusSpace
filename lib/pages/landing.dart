@@ -2,6 +2,7 @@ import 'package:campus_space/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:campus_space/pages/my_events.dart';
 import 'package:campus_space/pages/profile.dart';
+import 'package:flutter/widgets.dart';
 
 class LandningPage extends StatefulWidget {
   @override
@@ -18,17 +19,26 @@ class _LandningPageState extends State<LandningPage> {
   }
 
   final List<Widget> _pages = [
-    HomePage(),
-    MyEvents(),
-    Profile(),
+    const HomePage(),
+    const MyEvents(),
+    const Profile(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: _pages[_selectedIndex],
+        body: Container(
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                    colors: [Colors.white, Color(0xFFC5E7FF)],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: [0.6, 1.0])),
+            child: _pages[_selectedIndex]),
         bottomNavigationBar: NavigationBar(
-          indicatorColor: Colors.blue[300], //Color(0xFF0066FF),
+          indicatorColor: const Color.fromARGB(196, 0, 102, 255),
+          backgroundColor:
+              const Color.fromARGB(226, 205, 235, 255), //Color(0xFF0066FF),
           selectedIndex: _selectedIndex,
           onDestinationSelected: _navigateBottomBar,
           destinations: <Widget>[

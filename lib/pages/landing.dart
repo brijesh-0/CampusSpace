@@ -44,12 +44,19 @@ class _LandningPageState extends State<LandningPage> {
           destinations: <Widget>[
             NavigationDestination(
                 icon: _selectedIndex == 0
-                    ? Icon(Icons.home)
-                    : Icon(Icons.home_outlined),
+                    ? const Icon(Icons.home)
+                    : const Icon(Icons.home_outlined),
                 label: 'Home'),
             NavigationDestination(
-                icon: Icon(Icons.event_available), label: 'My Events'),
-            NavigationDestination(icon: Icon(Icons.person), label: 'Profile'),
+                icon: _selectedIndex == 1
+                    ? const Icon(Icons.event_available)
+                    : const Icon(Icons.event_available_outlined),
+                label: 'My Events'),
+            NavigationDestination(
+                icon: _selectedIndex == 2
+                    ? const Icon(Icons.person)
+                    : const Icon(Icons.person_outline),
+                label: 'Profile'),
           ],
         ));
   }

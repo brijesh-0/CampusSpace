@@ -19,10 +19,18 @@ class VenueCard extends StatelessWidget {
             children: <Widget>[
               // Use Expanded to fill remaining space
               Image.network(
-                'https://picsum.photos/200/300',
+                'https://www.collegebatch.com/static/clg-gallery/bms-college-of-engineering-bangalore-218122.jpg',
                 width: double.infinity, // Take full width
                 fit: BoxFit.cover, // Cover the entire area
               ),
+
+              // Gradient overlay -- Deprecated in favour or Text Shadow
+              // Container(
+              //     decoration: const BoxDecoration(
+              //         gradient: LinearGradient(
+              //             colors: [Colors.transparent, Colors.black],
+              //             begin: Alignment.topCenter,
+              //             end: Alignment.bottomCenter))),
 
               const Positioned(
                 bottom: 10.0,
@@ -31,21 +39,43 @@ class VenueCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Overlay Text',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold),
-                    ),
+                    Text('Overlay Text',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            shadows: [
+                              Shadow(
+                                color: Colors
+                                    .black, // Choose the color of the shadow
+                                blurRadius:
+                                    2.0, // Adjust the blur radius for the shadow effect
+                                offset: Offset(2.0, 2.0),
+                              )
+                            ])),
                     Row(
                       children: [
-                        Icon(
-                          Icons.people_alt_rounded,
-                          color: Colors.white,
-                        ),
+                        Icon(Icons.people_alt_rounded,
+                            color: Colors.white,
+                            shadows: [
+                              Shadow(
+                                color: Colors
+                                    .black, // Choose the color of the shadow
+                                blurRadius:
+                                    2.0, // Adjust the blur radius for the shadow effect
+                                offset: Offset(2.0, 2.0),
+                              )
+                            ]),
                         Text(' Capacity: 100',
-                            style: TextStyle(color: Colors.white))
+                            style: TextStyle(color: Colors.white, shadows: [
+                              Shadow(
+                                color: Colors
+                                    .black, // Choose the color of the shadow
+                                blurRadius:
+                                    2.0, // Adjust the blur radius for the shadow effect
+                                offset: Offset(2.0, 2.0),
+                              )
+                            ]))
                       ],
                     )
                   ],

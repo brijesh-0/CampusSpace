@@ -22,7 +22,9 @@ class MyEvents extends StatelessWidget {
             ),
           ),
           SizedBox(height: 15.0),
-          const MyEvent() // Adding some space between text and TextField
+          MyEvent(),
+          MyEvent(),
+          // Adding some space between text and TextField
         ],
       ),
     );

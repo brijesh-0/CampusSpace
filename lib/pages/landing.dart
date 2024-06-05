@@ -3,7 +3,6 @@ import 'package:campus_space/pages/venue_page.dart';
 import 'package:flutter/material.dart';
 import 'package:campus_space/pages/my_events.dart';
 import 'package:campus_space/pages/profile.dart';
-import 'package:flutter/widgets.dart';
 
 class LandningPage extends StatefulWidget {
   @override

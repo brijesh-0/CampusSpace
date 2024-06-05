@@ -45,7 +45,6 @@ class MyEvent extends StatelessWidget {
                       'Status Pending',
                       style: TextStyle(
                           fontStyle: FontStyle.italic,
-                          fontSize: 16.0,
                           color: Color(0xFF0066FF)),
                     )
                   ],

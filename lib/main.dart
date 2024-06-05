@@ -1,10 +1,6 @@
 import 'package:campus_space/pages/landing.dart';
 import 'package:campus_space/utils/theme.dart';
 import 'package:flutter/material.dart';
-<<<<<<< Updated upstream
-
-void main() {
-=======
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:campus_space/pages/venue_page.dart';
@@ -14,8 +10,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
->>>>>>> Stashed changes
   runApp(MyApp());
 }
 

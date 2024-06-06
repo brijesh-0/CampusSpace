@@ -66,6 +66,7 @@ class VenueCard extends StatelessWidget {
                           children: [
                             Icon(Icons.people_alt_rounded,
                                 color: Colors.white,
+                                size: 18.0,
                                 shadows: [
                                   Shadow(
                                     color: Colors

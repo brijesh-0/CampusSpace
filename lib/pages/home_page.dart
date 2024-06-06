@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:campus_space/widgets/venue_card.dart';
+import 'package:campus_space/models/testvenuemodel.dart'; // Import your Venue model class
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key});
@@ -37,7 +39,9 @@ class HomePage extends StatelessWidget {
                       fillColor: Colors.white,
                       filled: true,
                       contentPadding: const EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 10.0),
+                        vertical: 10.0,
+                        horizontal: 10.0,
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -55,7 +59,7 @@ class HomePage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 4.0),
                 child: IconButton(
-                  icon: Icon(Icons.search),
+                  icon: const Icon(Icons.search),
                   onPressed: () {
                     print("pressed Search icon");
                   },
@@ -63,14 +67,36 @@ class HomePage extends StatelessWidget {
               ),
             ],
           ),
-          const VenueCard(),
-          const VenueCard(),
-          const VenueCard(),
-          const VenueCard(),
-          const VenueCard(),
-          const VenueCard(),
-          const VenueCard(),
-          const VenueCard(),
+          StreamBuilder(
+            stream:
+                FirebaseFirestore.instance.collection('testvenues').snapshots(), // this is the query TODO: replace with service
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              if (snapshot.hasError) {
+                return Center(child: Text('Error: ${snapshot.error}'));
+              }
+
+              // stores the data in venues variable
+              final venues = snapshot.data?.docs
+                      .map((doc) =>
+                          Venue.fromMap(doc.data() as Map<String, dynamic>?))
+                      .toList() ??
+                  []; // Venue is the model
+
+              return Column(
+                children: venues.map((venue) {
+                  return VenueCard(
+                      name: venue.name,
+                      capacity: venue.capacity,
+                      imageUrl: venue.images.isNotEmpty ? venue.images[0] : '');
+                }).toList(),
+              );
+            },
+          ),
         ],
       ),
     );

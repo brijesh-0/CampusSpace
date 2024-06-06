@@ -37,7 +37,7 @@ class VenueCard extends StatelessWidget {
                   // Container(
                   //     decoration: const BoxDecoration(
                   //         gradient: LinearGradient(
-                  //             colors: [Colors.transparent, Colors.black],
+                  //             colors: [Colors.transparent, Color.fromARGB(66, 0, 0, 0)],
                   //             begin: Alignment.topCenter,
                   //             end: Alignment.bottomCenter))),
 
@@ -59,7 +59,7 @@ class VenueCard extends StatelessWidget {
                                         .black, // Choose the color of the shadow
                                     blurRadius:
                                         2.0, // Adjust the blur radius for the shadow effect
-                                    offset: Offset(2.0, 2.0),
+                                    offset: Offset(1.0, 1.0),
                                   )
                                 ])),
                         Row(
@@ -72,7 +72,7 @@ class VenueCard extends StatelessWidget {
                                         .black, // Choose the color of the shadow
                                     blurRadius:
                                         2.0, // Adjust the blur radius for the shadow effect
-                                    offset: Offset(2.0, 2.0),
+                                    offset: Offset(1.0, 1.0),
                                   )
                                 ]),
                             Text(' Capacity: 100',
@@ -82,7 +82,7 @@ class VenueCard extends StatelessWidget {
                                         .black, // Choose the color of the shadow
                                     blurRadius:
                                         2.0, // Adjust the blur radius for the shadow effect
-                                    offset: Offset(2.0, 2.0),
+                                    offset: Offset(1.0, 1.0),
                                   )
                                 ]))
                           ],

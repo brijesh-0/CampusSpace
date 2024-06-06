@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
-      home: LandningPage(),
+      home: LandingPage(),
       routes: {
         VenueDetailsPage.routeName: (context) => VenueDetailsPage(),
       },

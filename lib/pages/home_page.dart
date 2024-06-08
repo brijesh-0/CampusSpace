@@ -3,14 +3,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:campus_space/widgets/venue_card.dart';
 import 'package:campus_space/models/testvenuemodel.dart'; // Import your Venue model class
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key});
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  List<String> selectedFilters = [];
+  String searchText = '';
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15.0),
       child: ListView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         children: [
           const Padding(
             padding: EdgeInsets.only(left: 4.0, top: 15.0),
@@ -23,16 +32,20 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-              height: 15.0), // Adding some space between text and TextField
+          const SizedBox(height: 15.0),
           Row(
             children: [
               Expanded(
                 child: SizedBox(
                   height: 45,
                   child: TextField(
+                    onTapOutside: (event) {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                    },
                     onChanged: (value) {
-                      print('$value');
+                      setState(() {
+                        searchText = value.toLowerCase();
+                      });
                     },
                     cursorColor: Colors.grey,
                     decoration: InputDecoration(
@@ -67,32 +80,102 @@ class HomePage extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(height: 15.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4.0),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  FilterChip(
+                    label: const Text('Auditorium'),
+                    selected: selectedFilters.contains('auditorium'),
+                    onSelected: (isSelected) {
+                      updateFilters('auditorium', isSelected);
+                    },
+                    backgroundColor: Colors.white,
+                    selectedColor: Colors.blue[200],
+                    checkmarkColor: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  FilterChip(
+                    label: const Text('Labs'),
+                    selected: selectedFilters.contains('lab'),
+                    onSelected: (isSelected) {
+                      updateFilters('lab', isSelected);
+                    },
+                    backgroundColor: Colors.white,
+                    selectedColor: Colors.blue[200],
+                    checkmarkColor: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  FilterChip(
+                    label: const Text('Seminar Hall'),
+                    selected: selectedFilters.contains('seminar hall'),
+                    onSelected: (isSelected) {
+                      updateFilters('seminar hall', isSelected);
+                    },
+                    backgroundColor: Colors.white,
+                    selectedColor: Colors.blue[200],
+                    checkmarkColor: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  FilterChip(
+                    label: const Text('Outdoor'),
+                    selected: selectedFilters.contains('Outdoor'),
+                    onSelected: (isSelected) {
+                      updateFilters('Outdoor', isSelected);
+                    },
+                    backgroundColor: Colors.white,
+                    selectedColor: Colors.blue[200],
+                    checkmarkColor: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           StreamBuilder(
             stream:
-                FirebaseFirestore.instance.collection('testvenues').snapshots(), // this is the query TODO: replace with service
+                FirebaseFirestore.instance.collection('testvenues').snapshots(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
+                return const Center(child: null);
               }
 
               if (snapshot.hasError) {
                 return Center(child: Text('Error: ${snapshot.error}'));
               }
 
-              // stores the data in venues variable
-              final venues = snapshot.data?.docs
+              final filteredVenues = snapshot.data?.docs
                       .map((doc) =>
                           Venue.fromMap(doc.data() as Map<String, dynamic>?))
+                      .where((venue) =>
+                          (selectedFilters.isEmpty ||
+                              selectedFilters.contains(venue.venueType)) &&
+                          (searchText.isEmpty ||
+                              venue.name.toLowerCase().contains(searchText)))
                       .toList() ??
-                  []; // Venue is the model
+                  [];
 
               return Column(
-                children: venues.map((venue) {
+                children: filteredVenues.map((venue) {
                   return VenueCard(
                       name: venue.name,
                       capacity: venue.capacity,
-                      imageUrl: venue.images.isNotEmpty ? venue.images[0] : '');
+                      imageUrl: venue.images);
                 }).toList(),
               );
             },
@@ -100,5 +183,15 @@ class HomePage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void updateFilters(String filter, bool isSelected) {
+    setState(() {
+      if (isSelected) {
+        selectedFilters.add(filter);
+      } else {
+        selectedFilters.remove(filter);
+      }
+    });
   }
 }

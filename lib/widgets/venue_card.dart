@@ -4,25 +4,27 @@ import 'package:campus_space/pages/venue_page.dart';
 class VenueCard extends StatelessWidget {
   final String name;
   final String capacity;
-  final String imageUrl;
+  final List<String> imageUrl;
 
-  const VenueCard(
-      {required this.name, required this.capacity, required this.imageUrl});
+  const VenueCard({
+    required this.name,
+    required this.capacity,
+    required this.imageUrl,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 10.0),
-      child: Container(
+      child: SizedBox(
         width: double.infinity,
         height: 190,
         child: GestureDetector(
           onTap: () {
-            Navigator.pushNamed(
-              context,
-              VenueDetailsPage.routeName,
-              //arguments: imageUrl,
-            );
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => VenueDetailsPage(
+                    venuename: name, capacity: capacity, images: imageUrl)));
           },
           child: Card(
             clipBehavior: Clip.hardEdge,
@@ -32,7 +34,7 @@ class VenueCard extends StatelessWidget {
             child: Stack(
               children: <Widget>[
                 Image.network(
-                  imageUrl,
+                  imageUrl[0],
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),

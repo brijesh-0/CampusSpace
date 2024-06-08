@@ -5,7 +5,9 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
-      textTheme: TextTheme(bodyMedium: GoogleFonts.poppins(fontSize: 16)));
+      textTheme: TextTheme(
+          bodyMedium: GoogleFonts.poppins(fontSize: 16),
+          displayMedium: GoogleFonts.poppins(fontSize: 16)));
   static ThemeData darkTheme = ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,

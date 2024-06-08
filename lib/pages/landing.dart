@@ -40,22 +40,28 @@ class _LandingPageState extends State<LandingPage> {
         child: _pages[_selectedIndex],
       ),
       bottomNavigationBar: NavigationBar(
-        indicatorColor: const Color.fromARGB(196, 0, 102, 255),
+        indicatorColor: Colors.blue[200],
         height: 75.0,
-        backgroundColor: const Color.fromARGB(226, 205, 235, 255),
+        backgroundColor: const Color.fromRGBO(197, 231, 255, 1),
         selectedIndex: _selectedIndex,
         onDestinationSelected: _navigateBottomBar,
         destinations: <Widget>[
           NavigationDestination(
-            icon: _selectedIndex == 0 ? const Icon(Icons.home) : const Icon(Icons.home_outlined),
+            icon: _selectedIndex == 0
+                ? const Icon(Icons.home)
+                : const Icon(Icons.home_outlined),
             label: 'Home',
           ),
           NavigationDestination(
-            icon: _selectedIndex == 1 ? const Icon(Icons.event_available) : const Icon(Icons.event_available_outlined),
+            icon: _selectedIndex == 1
+                ? const Icon(Icons.event_available)
+                : const Icon(Icons.event_available_outlined),
             label: 'My Events',
           ),
           NavigationDestination(
-            icon: _selectedIndex == 2 ? const Icon(Icons.person) : const Icon(Icons.person_outline),
+            icon: _selectedIndex == 2
+                ? const Icon(Icons.person)
+                : const Icon(Icons.person_outline),
             label: 'Profile',
           ),
         ],
@@ -63,4 +69,3 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 }
-

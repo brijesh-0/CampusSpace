@@ -52,8 +52,8 @@ class SignInScreen extends StatelessWidget {
                   'assets/campusSpaceLogo.png', // Make sure to add your logo image to the assets folder and update the path
                   height: 120,
                 ),
-                SizedBox(height: 24),
-                Text(
+                const SizedBox(height: 24),
+                const Text(
                   'CampusSpace',
                   style: TextStyle(
                     fontSize: 32,
@@ -61,30 +61,30 @@ class SignInScreen extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
-                SizedBox(height: 8),
-                Text(
+                const SizedBox(height: 8),
+                const Text(
                   'Let\'s get you signed in!',
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.black54,
                   ),
                 ),
-                SizedBox(height: 48),
+                const SizedBox(height: 48),
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     foregroundColor: Colors.black,
-                    minimumSize: Size(double.infinity, 50),
+                    minimumSize: const Size(double.infinity, 50),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    side: BorderSide(color: Colors.grey),
+                    side: const BorderSide(color: Colors.grey),
                   ),
                   icon: Image.asset(
                     'assets/google-logo.png', // Make sure to add the Google logo image to the assets folder and update the path
                     height: 24,
                   ),
-                  label: Text('Sign in with Google'),
+                  label: const Text('Sign in with Google'),
                   onPressed: () => _handleSignIn(context), // Pass the context to _handleSignIn
                 ),
               ],

@@ -6,6 +6,16 @@ import 'package:campus_space/pages/profile.dart';
 class LandingPage extends StatefulWidget {
   static const routeName = '/landing';
 
+  final String displayName;
+  final String photoUrl;
+  final Future<void> Function() onSignOut;
+
+  LandingPage({
+    required this.displayName,
+    required this.photoUrl,
+    required this.onSignOut,
+  });
+
   @override
   State<LandingPage> createState() => _LandingPageState();
 }
@@ -25,11 +35,21 @@ class _LandingPageState extends State<LandingPage> {
     });
   }
 
-  final List<Widget> _pages = [
-    const HomePage(),
-    const MyEvents(),
-    const Profile(),
-  ];
+  late List<Widget> _pages;
+
+  @override
+  void initState() {
+    super.initState();
+    _pages = [
+      const HomePage(),
+      const MyEvents(),
+      Profile(
+        displayName: widget.displayName,
+        photoUrl: widget.photoUrl,
+        onSignOut: widget.onSignOut,
+      ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,3 +118,6 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 }
+
+
+

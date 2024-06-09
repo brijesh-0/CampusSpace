@@ -25,23 +25,46 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
       home: AuthGate(),
-      routes: {
-        LandingPage.routeName: (context) => LandingPage(),
+      onGenerateRoute: (settings) {
+        if (settings.name == LandingPage.routeName) {
+          final args = settings.arguments as Map<String, String>;
+          return MaterialPageRoute(
+            builder: (context) => LandingPage(
+              displayName: args['displayName']!,
+              photoUrl: args['photoUrl']!,
+              onSignOut: args['onSignOut'] as Future<void> Function(),
+            ),
+          );
+        }
+        return null; // Let `onUnknownRoute` handle this behavior.
       },
     );
   }
 }
 
 class AuthGate extends StatelessWidget {
+  Future<void> _signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
         } else if (snapshot.hasData) {
-          return LandingPage();
+          User? user = snapshot.data;
+          return LandingPage(
+            displayName: user?.displayName ?? 'No Name',
+            photoUrl: user?.photoURL ?? '',
+            onSignOut: _signOut,
+          );
         } else {
           return SignInScreen();
         }
@@ -49,3 +72,4 @@ class AuthGate extends StatelessWidget {
     );
   }
 }
+

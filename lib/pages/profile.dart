@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
 class Profile extends StatelessWidget {
-  const Profile();
+  final String displayName;
+  final String photoUrl;
+  final Future<void> Function() onSignOut;
+
+  const Profile({
+    required this.displayName,
+    required this.photoUrl,
+    required this.onSignOut,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,4 +27,23 @@ class Profile extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildSettingItem(IconData icon, String title) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.black),
+      title: Text(
+        title,
+        style: TextStyle(fontWeight: FontWeight.w500),
+      ),
+      trailing: Icon(Icons.chevron_right, color: Colors.grey),
+      onTap: () {
+        // Handle tap for each setting
+      },
+    );
+  }
 }
+
+
+
+
+

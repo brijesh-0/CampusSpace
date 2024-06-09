@@ -18,17 +18,31 @@ class SignInScreen extends StatelessWidget {
         idToken: googleAuth.idToken,
         accessToken: googleAuth.accessToken,
       );
-      await _auth.signInWithCredential(credential);
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => LandingPage()),
-      );
+      UserCredential userCredential = await _auth.signInWithCredential(credential);
+      User? user = userCredential.user;
+
+      if (user != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LandingPage(
+              displayName: user.displayName ?? 'No Name',
+              photoUrl: user.photoURL ?? '',
+              onSignOut: _signOut,
+            ),
+          ),
+        );
+      }
     } catch (error) {
       print(error);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Failed to sign in with Google: $error')),
       );
     }
+  }
+
+  Future<void> _signOut() async {
+    await _auth.signOut();
   }
 
   @override
@@ -52,7 +66,7 @@ class SignInScreen extends StatelessWidget {
                   'assets/campusSpaceLogo.png', // Make sure to add your logo image to the assets folder and update the path
                   height: 120,
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: 24),
                 const Text(
                   'CampusSpace',
                   style: TextStyle(
@@ -62,6 +76,8 @@ class SignInScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
+                const Text(
+                SizedBox(height: 8),
                 const Text(
                   'Let\'s get you signed in!',
                   style: TextStyle(
@@ -95,5 +111,7 @@ class SignInScreen extends StatelessWidget {
     );
   }
 }
+
+
 
 

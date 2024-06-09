@@ -76,21 +76,21 @@ class SignInScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-                const Text(
-                SizedBox(height: 8),
-                const Text(
+                 
+                const SizedBox(height: 8),
+                 const Text(
                   'Let\'s get you signed in!',
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.black54,
                   ),
                 ),
-                const SizedBox(height: 48),
+               const SizedBox(height: 48),
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     foregroundColor: Colors.black,
-                    minimumSize: const Size(double.infinity, 50),
+                    minimumSize: const  Size(double.infinity, 50),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),

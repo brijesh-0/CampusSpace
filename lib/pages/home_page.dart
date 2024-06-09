@@ -231,7 +231,8 @@ class _HomePageState extends State<HomePage> {
                   return VenueCard(
                       name: venue.name,
                       capacity: venue.capacity,
-                      imageUrl: venue.images);
+                      imageUrl: venue.images,
+                      details: venue.details);
                 }).toList(),
               );
             },

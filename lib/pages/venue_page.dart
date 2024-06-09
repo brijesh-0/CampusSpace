@@ -7,11 +7,13 @@ class VenueDetailsPage extends StatefulWidget {
   final String venuename;
   final String capacity;
   final List<String> images;
+  final String details;
 
   const VenueDetailsPage({
     required this.venuename,
     required this.capacity,
     required this.images,
+    required this.details,
     super.key,
   });
 
@@ -82,7 +84,7 @@ class VenueDetailsPageState extends State<VenueDetailsPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'A modern facility equipped with advanced audio-visual systems, accommodating large audiences for seminars, lectures, and cultural events, enhancing the academic and social experience.',
+                          widget.details,
                           maxLines: isExpanded ? null : 3,
                           textAlign: TextAlign.justify,
                         ),

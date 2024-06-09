@@ -5,11 +5,13 @@ class VenueCard extends StatelessWidget {
   final String name;
   final String capacity;
   final List<String> imageUrl;
+  final String details;
 
   const VenueCard({
     required this.name,
     required this.capacity,
     required this.imageUrl,
+    required this.details,
     Key? key,
   }) : super(key: key);
 
@@ -24,7 +26,10 @@ class VenueCard extends StatelessWidget {
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => VenueDetailsPage(
-                    venuename: name, capacity: capacity, images: imageUrl)));
+                    venuename: name,
+                    capacity: capacity,
+                    images: imageUrl,
+                    details: details)));
           },
           child: Card(
             clipBehavior: Clip.hardEdge,

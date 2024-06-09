@@ -22,22 +22,36 @@ class _HomePageState extends State<HomePage> {
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         children: [
           const Padding(
-            padding: EdgeInsets.only(left: 4.0, top: 15.0),
-            child: Text(
-              'Find Your Venue',
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          const SizedBox(height: 15.0),
+              padding: EdgeInsets.only(left: 4.0, top: 15.0),
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'Find Your ',
+                      style: TextStyle(
+                        fontSize: 28.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black, // Default color for 'Find Your'
+                      ),
+                    ),
+                    TextSpan(
+                      text: 'Venue',
+                      style: TextStyle(
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF0066FF), // Color for 'Venue'
+                      ),
+                    ),
+                  ],
+                ),
+                textAlign: TextAlign.left,
+              )),
+          const SizedBox(height: 16.0),
           Row(
             children: [
               Expanded(
                 child: SizedBox(
-                  height: 45,
+                  height: 50,
                   child: TextField(
                     onTapOutside: (event) {
                       FocusManager.instance.primaryFocus?.unfocus();
@@ -49,19 +63,29 @@ class _HomePageState extends State<HomePage> {
                     },
                     cursorColor: Colors.grey,
                     decoration: InputDecoration(
-                      fillColor: Colors.white,
+                      fillColor: Color.fromARGB(118, 223, 223, 223),
                       filled: true,
                       contentPadding: const EdgeInsets.symmetric(
                         vertical: 10.0,
                         horizontal: 10.0,
                       ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 255, 255, 255),
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(
+                          color: Color(0xFF0066FF),
+                          width: 2.0,
+                        ),
                       ),
                       hintText: 'Search...',
                       alignLabelWithHint: true,
-                      hintStyle: TextStyle(
-                        color: Colors.grey[600],
+                      hintStyle: const TextStyle(
+                        color: Color.fromARGB(255, 0, 0, 0),
                         fontSize: 14.0,
                         fontWeight: FontWeight.normal,
                       ),
@@ -70,9 +94,12 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 4.0),
+                padding: const EdgeInsets.only(left: 2.0),
                 child: IconButton(
-                  icon: const Icon(Icons.search),
+                  icon: const Icon(
+                    Icons.search,
+                    color: Color(0xFF0066FF),
+                  ),
                   onPressed: () {
                     print("pressed Search icon");
                   },
@@ -80,7 +107,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          const SizedBox(height: 15.0),
+          const SizedBox(height: 8.0),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4.0),
             child: SingleChildScrollView(
@@ -88,56 +115,84 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 children: [
                   FilterChip(
-                    label: const Text('Auditorium'),
+                    label: Text(
+                      'Auditoriums',
+                      style: TextStyle(
+                        color: selectedFilters.contains('auditorium')
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                    ),
                     selected: selectedFilters.contains('auditorium'),
                     onSelected: (isSelected) {
                       updateFilters('auditorium', isSelected);
                     },
                     backgroundColor: Colors.white,
-                    selectedColor: Colors.blue[200],
-                    checkmarkColor: Colors.black,
+                    selectedColor: Color(0xFF0066FF),
+                    checkmarkColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
                   const SizedBox(width: 8),
                   FilterChip(
-                    label: const Text('Labs'),
+                    label: Text(
+                      'Labs',
+                      style: TextStyle(
+                        color: selectedFilters.contains('lab')
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                    ),
                     selected: selectedFilters.contains('lab'),
                     onSelected: (isSelected) {
                       updateFilters('lab', isSelected);
                     },
                     backgroundColor: Colors.white,
-                    selectedColor: Colors.blue[200],
-                    checkmarkColor: Colors.black,
+                    selectedColor: Color(0xFF0066FF),
+                    checkmarkColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
                   const SizedBox(width: 8),
                   FilterChip(
-                    label: const Text('Seminar Hall'),
+                    label: Text(
+                      'Seminar Halls',
+                      style: TextStyle(
+                        color: selectedFilters.contains('seminar hall')
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                    ),
                     selected: selectedFilters.contains('seminar hall'),
                     onSelected: (isSelected) {
                       updateFilters('seminar hall', isSelected);
                     },
                     backgroundColor: Colors.white,
-                    selectedColor: Colors.blue[200],
-                    checkmarkColor: Colors.black,
+                    selectedColor: Color(0xFF0066FF),
+                    checkmarkColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
                   const SizedBox(width: 8),
                   FilterChip(
-                    label: const Text('Outdoor'),
+                    label: Text(
+                      'Outdoor',
+                      style: TextStyle(
+                        color: selectedFilters.contains('Outdoor')
+                            ? Colors.white
+                            : Colors.black,
+                      ),
+                    ),
                     selected: selectedFilters.contains('Outdoor'),
                     onSelected: (isSelected) {
                       updateFilters('Outdoor', isSelected);
                     },
                     backgroundColor: Colors.white,
-                    selectedColor: Colors.blue[200],
-                    checkmarkColor: Colors.black,
+                    selectedColor: Color(0xFF0066FF),
+                    checkmarkColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
@@ -146,6 +201,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+          SizedBox(height: 6.0),
           StreamBuilder(
             stream:
                 FirebaseFirestore.instance.collection('testvenues').snapshots(),

@@ -20,20 +20,22 @@ class VenueDetailsPage extends StatefulWidget {
 }
 
 class VenueDetailsPageState extends State<VenueDetailsPage> {
+  bool isExpanded = false;
   int activeIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
-        decoration: const BoxDecoration(
+        /*decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [Colors.white, Color(0xFFC5E7FF)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             stops: [0.6, 1.0],
           ),
-        ),
+        ),*/
         child: ListView(
           children: [
             buildImageSlider(),
@@ -43,11 +45,11 @@ class VenueDetailsPageState extends State<VenueDetailsPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 24),
                   Text(
                     widget.venuename,
                     style: const TextStyle(
-                        fontSize: 24, fontWeight: FontWeight.bold),
+                        fontSize: 28, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 3),
                   Row(
@@ -64,20 +66,45 @@ class VenueDetailsPageState extends State<VenueDetailsPage> {
                       Text("Ground Floor, PJ Block"),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 24),
                   const Text(
-                    'Details:',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    'Details',
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 6),
-                  const Text(
-                    'A modern facility equipped with advanced audio-visual systems, accommodating large audiences for seminars, lectures, and cultural events, enhancing the academic and social experience.',
-                    textAlign: TextAlign.justify,
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isExpanded = !isExpanded;
+                      });
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'A modern facility equipped with advanced audio-visual systems, accommodating large audiences for seminars, lectures, and cultural events, enhancing the academic and social experience.',
+                          maxLines: isExpanded ? null : 3,
+                          textAlign: TextAlign.justify,
+                        ),
+                        const SizedBox(height: 3),
+                        if (!isExpanded)
+                          const Row(
+                            children: [
+                              Text(
+                                'Read more',
+                                style: TextStyle(color: Color(0xFF0066FF)),
+                              ),
+                              Icon(Icons.keyboard_arrow_down,
+                                  color: Color(0xFF0066FF)),
+                            ],
+                          ),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 24),
                   const Text(
-                    'Amenities:',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    'Amenities',
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   buildAmenitiesList(),
@@ -90,7 +117,7 @@ class VenueDetailsPageState extends State<VenueDetailsPage> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF0066FF),
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 130, vertical: 14),
+                            horizontal: 145, vertical: 18),
                         textStyle: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                         shape: RoundedRectangleBorder(
@@ -113,28 +140,57 @@ class VenueDetailsPageState extends State<VenueDetailsPage> {
   }
 
   Widget buildImageSlider() {
-    return Stack(
-      children: [
-        CarouselSlider.builder(
-          itemCount: widget.images.length,
-          itemBuilder: (context, index, realIndex) {
-            return buildImage(widget.images[index], index);
-          },
-          options: CarouselOptions(
-            height: 240,
-            viewportFraction: 1,
-            onPageChanged: (index, reason) =>
-                setState(() => activeIndex = index),
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 7,
+            offset: Offset(1, 1.5),
           ),
-        ),
-        const SizedBox(height: 16),
-        Positioned(
-          bottom: 10,
-          left: 0,
-          right: 0,
-          child: Center(child: buildIndicator(widget.images.length)),
-        ),
-      ],
+        ],
+      ),
+      child: Stack(
+        children: [
+          CarouselSlider.builder(
+            itemCount: widget.images.length,
+            itemBuilder: (context, index, realIndex) {
+              return buildImage(widget.images[index], index);
+            },
+            options: CarouselOptions(
+              height: 240,
+              viewportFraction: 1,
+              autoPlay: true,
+              onPageChanged: (index, reason) =>
+                  setState(() => activeIndex = index),
+            ),
+          ),
+          Positioned(
+              top: 15, // Adjust the top position as needed
+              left: 10, // Adjust the left position as needed
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius:
+                      BorderRadius.circular(30), // Adjust the radius as needed
+                  color: Colors.white,
+                ),
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              )),
+          const SizedBox(height: 16),
+          Positioned(
+            bottom: 10,
+            left: 0,
+            right: 0,
+            child: Center(child: buildIndicator(widget.images.length)),
+          ),
+        ],
+      ),
     );
   }
 

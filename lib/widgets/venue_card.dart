@@ -29,7 +29,7 @@ class VenueCard extends StatelessWidget {
           child: Card(
             clipBehavior: Clip.hardEdge,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20.0),
+              borderRadius: BorderRadius.circular(10.0),
             ),
             child: Stack(
               children: <Widget>[

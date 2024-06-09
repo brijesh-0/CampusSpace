@@ -11,16 +11,30 @@ class MyEvents extends StatelessWidget {
       child: ListView(
         children: const [
           Padding(
-            padding: EdgeInsets.only(left: 4.0, top: 15.0),
-            child: Text(
-              'My Events',
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
+              padding: EdgeInsets.only(left: 4.0, top: 15.0),
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'My ',
+                      style: TextStyle(
+                        fontSize: 28.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black, // Default color for 'Find Your'
+                      ),
+                    ),
+                    TextSpan(
+                      text: 'Events',
+                      style: TextStyle(
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF0066FF), // Color for 'Venue'
+                      ),
+                    ),
+                  ],
+                ),
+                textAlign: TextAlign.left,
+              )),
           SizedBox(height: 15.0),
           MyEvent(),
           MyEvent(),

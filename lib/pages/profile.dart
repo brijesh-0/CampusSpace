@@ -14,12 +14,14 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
         title: const Text(
           'My Profile',
-          style: TextStyle( 
+          style: TextStyle(
             fontSize: 24.0,
-            fontWeight: FontWeight.bold,),
+            fontWeight: FontWeight.bold,
+          ),
         ),
         backgroundColor: Colors.white,
         elevation: 0,
@@ -64,9 +66,10 @@ class Profile extends StatelessWidget {
                 Navigator.pushReplacementNamed(context, '/');
               },
               icon: const Icon(Icons.logout, color: Colors.white),
-              label: const Text('Logout', style: TextStyle(color: Colors.white)),
+              label:
+                  const Text('Logout', style: TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
+                backgroundColor: Color.fromARGB(255, 218, 48, 48),
                 minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -93,8 +96,3 @@ class Profile extends StatelessWidget {
     );
   }
 }
-
-
-
-
-

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:campus_space/widgets/amenities_list.dart';
+import 'package:campus_space/widgets/Booking_Form.dart';
 
 class VenueDetailsPage extends StatefulWidget {
   final String venuename;
@@ -114,7 +115,23 @@ class VenueDetailsPageState extends State<VenueDetailsPage> {
                   Center(
                     child: ElevatedButton(
                       onPressed: () {
-                        // Handle booking action
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled:
+                              true, // To make sure the sheet takes full height
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(25.0)),
+                          ),
+                          builder: (BuildContext context) {
+                            return Padding(
+                              padding: EdgeInsets.only(
+                                  bottom:
+                                      MediaQuery.of(context).viewInsets.bottom),
+                              child: BookingForm(),
+                            );
+                          },
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF0066FF),

@@ -30,7 +30,8 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      backgroundColor: Colors.white,
+       appBar: AppBar(
         title: const Text(
           'My Profile',
           style: TextStyle(
@@ -80,9 +81,10 @@ class Profile extends StatelessWidget {
                 await _signOut(context); // Call the function to sign out the user
               },
               icon: const Icon(Icons.logout, color: Colors.white),
-              label: const Text('Logout', style: TextStyle(color: Colors.white)),
+              label:
+                  const Text('Logout', style: TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
+                backgroundColor: Color.fromARGB(255, 218, 48, 48),
                 minimumSize: const Size(double.infinity, 50),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -109,10 +111,6 @@ class Profile extends StatelessWidget {
     );
   }
 }
-
-
-
-
 
 
 

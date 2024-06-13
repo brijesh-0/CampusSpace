@@ -13,12 +13,14 @@ class SignInScreen extends StatelessWidget {
       if (googleUser == null) {
         return; // The user canceled the sign-in
       }
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
         idToken: googleAuth.idToken,
         accessToken: googleAuth.accessToken,
       );
-      UserCredential userCredential = await _auth.signInWithCredential(credential);
+      UserCredential userCredential =
+          await _auth.signInWithCredential(credential);
       User? user = userCredential.user;
 
       if (user != null) {
@@ -101,15 +103,17 @@ class SignInScreen extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
+                const SizedBox(height: 48),
+                 
                 const SizedBox(height: 8),
-                const Text(
+                 const Text(
                   'Let\'s get you signed in!',
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.black54,
                   ),
                 ),
-                const SizedBox(height: 48),
+               const SizedBox(height: 12),
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
@@ -125,7 +129,8 @@ class SignInScreen extends StatelessWidget {
                     height: 24,
                   ),
                   label: const Text('Sign in with Google'),
-                  onPressed: () => _handleSignIn(context), // Pass the context to _handleSignIn
+                  onPressed: () => _handleSignIn(
+                      context), // Pass the context to _handleSignIn
                 ),
               ],
             ),

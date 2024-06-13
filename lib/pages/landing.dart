@@ -56,17 +56,6 @@ class _LandingPageState extends State<LandingPage> {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
       body: Container(
-        /*decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromARGB(255, 218, 238, 255),
-              Color.fromARGB(255, 218, 238, 255)
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: [0.6, 1.0],
-          ),
-        ),*/
         child: PageView(
           controller: _pageController,
           onPageChanged: (index) {
@@ -118,6 +107,7 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 }
+
 
 
 

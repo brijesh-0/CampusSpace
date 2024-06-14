@@ -4,7 +4,8 @@ import 'package:campus_space/widgets/venue_card.dart';
 import 'package:campus_space/models/testvenuemodel.dart'; // Import your Venue model class
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final String displayName;
+  const HomePage({Key? key, required this.displayName}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -230,6 +231,7 @@ class _HomePageState extends State<HomePage> {
                 children: filteredVenues.map((venue) {
                   return VenueCard(
                       name: venue.name,
+                      displayName: widget.displayName,
                       capacity: venue.capacity,
                       imageUrl: venue.images,
                       details: venue.details);

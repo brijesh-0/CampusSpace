@@ -7,11 +7,13 @@ class AppTheme {
       primaryColor: const Color(0xFF0066FF),
       brightness: Brightness.light,
       inputDecorationTheme: const InputDecorationTheme(
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFF0066FF)),
-          ),
-          labelStyle: TextStyle(color: Colors.black),
-          floatingLabelStyle: TextStyle(color: Color(0xFF0066FF))),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Color(0xFF0066FF)),
+        ),
+
+        //labelStyle: TextStyle(color: Colors.black),
+        //floatingLabelStyle: TextStyle(color: Color(0xFF0066FF))
+      ),
       textTheme: TextTheme(
         bodyMedium: GoogleFonts.roboto(fontSize: 16),
         displayMedium: GoogleFonts.roboto(fontSize: 16),

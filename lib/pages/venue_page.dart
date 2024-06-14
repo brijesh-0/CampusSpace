@@ -5,12 +5,14 @@ import 'package:campus_space/widgets/amenities_list.dart';
 import 'package:campus_space/widgets/Booking_Form.dart';
 
 class VenueDetailsPage extends StatefulWidget {
+  final String displayName;
   final String venuename;
   final String capacity;
   final List<String> images;
   final String details;
 
   const VenueDetailsPage({
+    required this.displayName,
     required this.venuename,
     required this.capacity,
     required this.images,
@@ -114,8 +116,30 @@ class VenueDetailsPageState extends State<VenueDetailsPage> {
                   const SizedBox(height: 24),
                   Center(
                     child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: Size.fromWidth(370.0),
+                        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                        side: BorderSide(width: 1.5, color: Color(0xFF0066FF)),
+                        padding: const EdgeInsets.symmetric(vertical: 18),
+                        textStyle: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                      ),
+                      child: const Text(
+                        'View Venue Calendar',
+                        style: TextStyle(color: Color(0xFF0066FF)),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Center(
+                    child: ElevatedButton(
                       onPressed: () {
                         showModalBottomSheet(
+                          useSafeArea: true,
                           context: context,
                           isScrollControlled:
                               true, // To make sure the sheet takes full height
@@ -128,15 +152,18 @@ class VenueDetailsPageState extends State<VenueDetailsPage> {
                               padding: EdgeInsets.only(
                                   bottom:
                                       MediaQuery.of(context).viewInsets.bottom),
-                              child: BookingForm(),
+                              child: BookingForm(
+                                  capacity: widget.capacity,
+                                  venuename: widget.venuename,
+                                  userName: widget.displayName),
                             );
                           },
                         );
                       },
                       style: ElevatedButton.styleFrom(
+                        fixedSize: Size.fromWidth(370.0),
                         backgroundColor: const Color(0xFF0066FF),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 145, vertical: 18),
+                        padding: const EdgeInsets.symmetric(vertical: 18),
                         textStyle: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                         shape: RoundedRectangleBorder(

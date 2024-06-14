@@ -41,7 +41,9 @@ class _LandingPageState extends State<LandingPage> {
   void initState() {
     super.initState();
     _pages = [
-      const HomePage(),
+      HomePage(
+        displayName: widget.displayName,
+      ),
       const MyEvents(),
       Profile(
         displayName: widget.displayName,
@@ -118,6 +120,3 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 }
-
-
-

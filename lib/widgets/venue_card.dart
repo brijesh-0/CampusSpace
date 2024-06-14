@@ -3,11 +3,13 @@ import 'package:campus_space/pages/venue_page.dart';
 
 class VenueCard extends StatelessWidget {
   final String name;
+  final String displayName;
   final String capacity;
   final List<String> imageUrl;
   final String details;
 
   const VenueCard({
+    required this.displayName,
     required this.name,
     required this.capacity,
     required this.imageUrl,
@@ -26,6 +28,7 @@ class VenueCard extends StatelessWidget {
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => VenueDetailsPage(
+                    displayName: displayName,
                     venuename: name,
                     capacity: capacity,
                     images: imageUrl,

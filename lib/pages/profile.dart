@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Profile extends StatelessWidget {
   final String displayName;
@@ -11,11 +13,25 @@ class Profile extends StatelessWidget {
     required this.onSignOut,
   });
 
+  Future<void> _signOut(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      await GoogleSignIn().signOut();
+      await onSignOut();
+      Navigator.pushReplacementNamed(context, '/');
+    } catch (error) {
+      print("Failed to sign out: $error");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to sign out: $error')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
+       appBar: AppBar(
         title: const Text(
           'My Profile',
           style: TextStyle(
@@ -62,8 +78,7 @@ class Profile extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: ElevatedButton.icon(
               onPressed: () async {
-                await onSignOut();
-                Navigator.pushReplacementNamed(context, '/');
+                await _signOut(context); // Call the function to sign out the user
               },
               icon: const Icon(Icons.logout, color: Colors.white),
               label:
@@ -96,3 +111,7 @@ class Profile extends StatelessWidget {
     );
   }
 }
+
+
+
+

@@ -24,27 +24,53 @@ class SignInScreen extends StatelessWidget {
       User? user = userCredential.user;
 
       if (user != null) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => LandingPage(
-              displayName: user.displayName ?? 'No Name',
-              photoUrl: user.photoURL ?? '',
-              onSignOut: _signOut,
+        if (user.email != null && user.email!.endsWith('@bmsce.ac.in')) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LandingPage(
+                displayName: user.displayName ?? 'No Name',
+                photoUrl: user.photoURL ?? '',
+                onSignOut: _signOut,
+              ),
             ),
-          ),
-        );
+          );
+        } else {
+          await _auth.signOut();
+          await _googleSignIn.signOut();
+          _showCustomSnackbar(context, 'Invalid email');
+        }
       }
     } catch (error) {
       print(error);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to sign in with Google: $error')),
-      );
+      _showCustomSnackbar(context, 'Failed to sign in with Google: $error');
     }
   }
 
   Future<void> _signOut() async {
     await _auth.signOut();
+    await _googleSignIn.signOut();
+  }
+
+  void _showCustomSnackbar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          message,
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.red,
+        behavior: SnackBarBehavior.floating,
+        margin: EdgeInsets.all(20),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        duration: Duration(seconds: 3),
+      ),
+    );
   }
 
   @override
@@ -78,14 +104,16 @@ class SignInScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 48),
-                const Text(
+                 
+                const SizedBox(height: 8),
+                 const Text(
                   'Let\'s get you signed in!',
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.black54,
                   ),
                 ),
-                const SizedBox(height: 12),
+               const SizedBox(height: 12),
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
@@ -112,3 +140,6 @@ class SignInScreen extends StatelessWidget {
     );
   }
 }
+
+
+

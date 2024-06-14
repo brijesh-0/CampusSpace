@@ -123,7 +123,7 @@ class VenueDetailsPageState extends State<VenueDetailsPage> {
                         side: BorderSide(width: 1.5, color: Color(0xFF0066FF)),
                         padding: const EdgeInsets.symmetric(vertical: 18),
                         textStyle: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                            fontSize: 18, fontWeight: FontWeight.w400),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0),
                         ),

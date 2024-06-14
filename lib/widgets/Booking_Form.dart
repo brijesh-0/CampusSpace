@@ -25,9 +25,10 @@ class _BookingFormState extends State<BookingForm> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   //final FirebaseStorage _storage = FirebaseStorage.instance;
   File? _selectedImageFile;
-  DateTime? _selectedDate;
-  TimeOfDay? _selectedEndTime;
-  TimeOfDay? _selectedStartTime;
+  final List<DateTime?> _selectedDates = [null];
+  final List<TimeOfDay?> _selectedStartTimes = [null];
+  final List<TimeOfDay?> _selectedEndTimes = [null];
+  int _numberOfDays = 1;
   String? _uploadedImageUrl;
   String? _eventName,
       _eventDescription,
@@ -38,46 +39,77 @@ class _BookingFormState extends State<BookingForm> {
   bool _agreedToTerms = false;
   bool _isUploadingImage = false;
 
-  Future<void> _selectDate(BuildContext context) async {
+  void _addDateTimeFields() {
+    setState(() {
+      _selectedDates.add(null);
+      _selectedStartTimes.add(null);
+      _selectedEndTimes.add(null);
+    });
+  }
+
+  void _removeDateTimeFields(int index) {
+    setState(() {
+      _selectedDates.removeAt(index);
+      _selectedStartTimes.removeAt(index);
+      _selectedEndTimes.removeAt(index);
+    });
+  }
+
+  Future<void> _selectDate(BuildContext context, int index) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: _selectedDate ?? DateTime.now(),
+      initialDate: _selectedDates[index] ?? DateTime.now(),
       firstDate: DateTime.now(),
       lastDate: DateTime(DateTime.now().year + 1),
     );
 
-    if (picked != null && picked != _selectedDate) {
+    if (picked != null && picked != _selectedDates[index]) {
       setState(() {
-        _selectedDate = picked;
+        _selectedDates[index] = picked;
       });
     }
   }
 
-  Future<void> _selectStartTime(BuildContext context) async {
+  Future<void> _selectStartTime(BuildContext context, int index) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
-      initialTime: _selectedStartTime ?? TimeOfDay.now(),
+      initialTime: _selectedStartTimes[index] ?? TimeOfDay.now(),
     );
 
-    if (picked != null && picked != _selectedStartTime) {
+    if (picked != null && picked != _selectedStartTimes[index]) {
       setState(() {
-        _selectedStartTime = picked;
+        _selectedStartTimes[index] = picked;
       });
     }
   }
 
   // End time picker function
-  Future<void> _selectEndTime(BuildContext context) async {
+  Future<void> _selectEndTime(BuildContext context, int index) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
-      initialTime: _selectedEndTime ?? TimeOfDay.now(),
+      initialTime: _selectedEndTimes[index] ?? TimeOfDay.now(),
     );
 
-    if (picked != null && picked != _selectedEndTime) {
+    if (picked != null && picked != _selectedEndTimes[index]) {
       setState(() {
-        _selectedEndTime = picked;
+        _selectedEndTimes[index] = picked;
       });
     }
+  }
+
+  bool? _validateEndTime(int index) {
+    print("Called");
+    if (_selectedStartTimes[index] != null &&
+        _selectedEndTimes[index] != null) {
+      final startMinutes = _selectedStartTimes[index]!.hour * 60 +
+          _selectedStartTimes[index]!.minute;
+      final endMinutes = _selectedEndTimes[index]!.hour * 60 +
+          _selectedEndTimes[index]!.minute;
+      if (endMinutes < startMinutes) {
+        return false;
+      }
+    }
+    return true;
   }
 
   Future<void> _selectImage() async {
@@ -117,17 +149,23 @@ class _BookingFormState extends State<BookingForm> {
       _formKey.currentState!.save();
       await _uploadImage();
 
-      // Combine selected date and time into a DateTime object
-      DateTime date = DateTime(
-        _selectedDate!.year,
-        _selectedDate!.month,
-        _selectedDate!.day,
-      );
+      List<Map<String, dynamic>> dateTimeList = [];
 
-      // Format date time if needed
-      String formattedDate = DateFormat('yyyy-MM-dd').format(date);
-      String formattedStartTime = _selectedStartTime!.format(context);
-      String formattedEndTime = _selectedEndTime!.format(context);
+      for (int i = 0; i < _numberOfDays; i++) {
+        DateTime date = DateTime(
+          _selectedDates[i]!.year,
+          _selectedDates[i]!.month,
+          _selectedDates[i]!.day,
+        );
+
+        dateTimeList.add({
+          "date": DateFormat('dd-MM-yyyy').format(date),
+          "start-time": _selectedStartTimes[i]!.format(context),
+          "end-time": _selectedEndTimes[i]!.format(context),
+        });
+        //String formattedStartTime = _selectedStartTime!.format(context);
+        //String formattedEndTime = _selectedEndTime!.format(context);
+      }
 
       // Push booking information to Firestore
       await _firestore.collection('bookings').add({
@@ -138,16 +176,20 @@ class _BookingFormState extends State<BookingForm> {
         'contactPerson': _contactPerson,
         'contactEmail': _contactEmail,
         'contactPhone': _contactPhone,
-        'date': formattedDate,
-        'start_time': formattedStartTime,
-        'end_time': formattedEndTime,
+        'dateTimeList': dateTimeList,
         'attendee_no': _numAttendees,
+        'isConfirmed': false,
         'poster_url':
             _uploadedImageUrl, // Store date and time as a string or timestamp
       });
 
       // Optionally, navigate back to previous screen or show a success message
       Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Booking submitted successfully!'),
+        ),
+      );
     } else {
       if (!_agreedToTerms) {
         showDialog(
@@ -155,12 +197,12 @@ class _BookingFormState extends State<BookingForm> {
             builder: (BuildContext context) {
               return AlertDialog(
                 backgroundColor: Colors.white,
-                title: Text('Error'),
-                content: Text(
+                title: const Text('Error'),
+                content: const Text(
                     'You must agree to the terms and conditions to submit the form.'),
                 actions: <Widget>[
                   TextButton(
-                    child: Text(
+                    child: const Text(
                       'OK',
                       style: TextStyle(color: Color(0xFF0066FF)),
                     ),
@@ -178,7 +220,7 @@ class _BookingFormState extends State<BookingForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color.fromARGB(255, 248, 251, 255),
+      color: const Color.fromARGB(255, 248, 251, 255),
       padding: const EdgeInsets.all(16.0),
       child: SingleChildScrollView(
         child: Form(
@@ -190,17 +232,17 @@ class _BookingFormState extends State<BookingForm> {
               TextFormField(
                 readOnly: true,
                 initialValue: widget.userName,
-                decoration: InputDecoration(hintText: 'Club Name'),
+                decoration: const InputDecoration(labelText: 'Club Name'),
               ),
               const SizedBox(height: 8.0),
               TextFormField(
                 readOnly: true,
                 initialValue: widget.venuename,
-                decoration: const InputDecoration(hintText: 'Venue Name'),
+                decoration: const InputDecoration(labelText: 'Venue Name'),
               ),
               const SizedBox(height: 8.0),
               TextFormField(
-                decoration: InputDecoration(hintText: 'Event Name'),
+                decoration: const InputDecoration(labelText: 'Event Name'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter the event name';
@@ -213,7 +255,8 @@ class _BookingFormState extends State<BookingForm> {
               ),
               const SizedBox(height: 8.0),
               TextFormField(
-                decoration: InputDecoration(hintText: 'Event Description'),
+                decoration:
+                    const InputDecoration(labelText: 'Event Description'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter the event description';
@@ -227,7 +270,8 @@ class _BookingFormState extends State<BookingForm> {
 
               const SizedBox(height: 8.0),
               TextFormField(
-                decoration: InputDecoration(hintText: 'Contact Person Name'),
+                decoration:
+                    const InputDecoration(labelText: 'Contact Person Name'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter the contact person name';
@@ -240,7 +284,7 @@ class _BookingFormState extends State<BookingForm> {
               ),
               const SizedBox(height: 8.0),
               TextFormField(
-                decoration: InputDecoration(hintText: 'Contact Email'),
+                decoration: const InputDecoration(labelText: 'Contact Email'),
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -257,7 +301,8 @@ class _BookingFormState extends State<BookingForm> {
               ),
               const SizedBox(height: 8.0),
               TextFormField(
-                decoration: InputDecoration(hintText: 'Contact Phone Number'),
+                decoration:
+                    const InputDecoration(labelText: 'Contact Phone Number'),
                 keyboardType: TextInputType.number,
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
@@ -287,7 +332,113 @@ class _BookingFormState extends State<BookingForm> {
                     : 'Date: ${DateFormat('yyyy-MM-dd').format(_selectedDate!)}'),
                 onTap: () => _selectDate(context),
               ),*/
-              Row(
+              ListTile(
+                leading: const Icon(Icons.calendar_today),
+                title: Row(
+                  children: [
+                    const Text('Number of Days for Reservation:'),
+                    const SizedBox(width: 5),
+                    DropdownButton<int>(
+                      value: _numberOfDays,
+                      items: List.generate(10, (index) => index + 1)
+                          .map((e) => DropdownMenuItem<int>(
+                                child: Text(e.toString()),
+                                value: e,
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _numberOfDays = value!;
+                          while (_selectedDates.length < _numberOfDays) {
+                            _addDateTimeFields();
+                          }
+                          while (_selectedDates.length > _numberOfDays) {
+                            _removeDateTimeFields(_selectedDates.length - 1);
+                          }
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              for (int i = 0; i < _numberOfDays; i++)
+                Column(children: [
+                  if (_numberOfDays > 1)
+                    Text(
+                      "Day ${i + 1}",
+                      textAlign: TextAlign.left,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          readOnly: true,
+                          decoration: InputDecoration(
+                              icon: const Icon(Icons.calendar_month_rounded),
+                              hintText: _selectedDates[i] == null
+                                  ? 'Select Date'
+                                  : 'Date: ${DateFormat('yyyy-MM-dd').format(_selectedDates[i]!)}'),
+                          onTap: () => _selectDate(context, i),
+                          validator: (value) {
+                            if (_selectedDates[i] == null) {
+                              return 'Please select the event date';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8.0),
+
+                  // Start and End Time Pickers
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          readOnly: true,
+                          decoration: InputDecoration(
+                              icon: const Icon(Icons.access_time),
+                              hintText: _selectedStartTimes[i] == null
+                                  ? 'Select Start Time'
+                                  : 'Start Time: ${_selectedStartTimes[i]!.format(context)}'),
+                          onTap: () => _selectStartTime(context, i),
+                          validator: (value) {
+                            if (_selectedStartTimes[i] == null) {
+                              return 'Please select the event start time';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        child: TextFormField(
+                          readOnly: true,
+                          decoration: InputDecoration(
+                              icon: const Icon(Icons.access_time),
+                              hintText: _selectedEndTimes[i] == null
+                                  ? 'Select End Time'
+                                  : 'End Time: ${_selectedEndTimes[i]!.format(context)}'),
+                          onTap: () => _selectEndTime(context, i),
+                          validator: (value) {
+                            if (_selectedEndTimes[i] == null) {
+                              return 'Please select the event end  time';
+                            }
+                            if (_validateEndTime(i) == false) {
+                              return "End time cannot be earlier than Start time";
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20.0,
+                  )
+                ]),
+              /*Row(
                 children: [
                   Expanded(
                     child: TextFormField(
@@ -358,13 +509,11 @@ class _BookingFormState extends State<BookingForm> {
                     ),
                   ),
                 ],
-              ),
-
-              const SizedBox(height: 8.0),
+              ),*/
 
               // Number of Attendees TextFormField
               TextFormField(
-                decoration: InputDecoration(hintText: 'Number of Attendees'),
+                decoration: InputDecoration(labelText: 'Number of Attendees'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {

@@ -30,14 +30,22 @@ class MyEvent extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      'My Event 1',
+                      'Auditorium 1',
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
-                    Text('3:30pm, 5 June 2024'),
-                    Text('Auditorium 1'),
+                    Row(children: [
+                      Text("Event: ",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text('My Event'),
+                    ]),
+                    Row(children: [
+                      Text("Date: ",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text('3:30pm, 5 June 2024')
+                    ]),
                     SizedBox(
-                      height: 15.0,
+                      height: 20.0,
                     ),
                     Text(
                       'Status Pending',

@@ -24,7 +24,7 @@ class MyEvents extends StatelessWidget {
                       ),
                     ),
                     TextSpan(
-                      text: 'Events',
+                      text: 'Reservations',
                       style: TextStyle(
                         fontSize: 30.0,
                         fontWeight: FontWeight.bold,

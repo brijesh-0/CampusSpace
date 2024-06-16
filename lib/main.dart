@@ -6,7 +6,7 @@ import 'pages/landing.dart';
 import 'pages/sign_in_screen.dart';
 import 'utils/theme.dart';
 
-  void main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -72,4 +72,3 @@ class AuthGate extends StatelessWidget {
     );
   }
 }
-

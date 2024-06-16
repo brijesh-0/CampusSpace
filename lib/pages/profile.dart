@@ -31,7 +31,7 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-       appBar: AppBar(
+      appBar: AppBar(
         title: const Text(
           'My Profile',
           style: TextStyle(
@@ -62,9 +62,9 @@ class Profile extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           Text(
-            displayName,
+            "Welcome " + displayName + "!",
             style: const TextStyle(
-              fontSize: 18,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -73,12 +73,13 @@ class Profile extends StatelessWidget {
           _buildSettingItem(Icons.history, 'Venue History'),
           _buildSettingItem(Icons.notifications, 'Notifications'),
           _buildSettingItem(Icons.help, 'Help and Support'),
-          const Spacer(),
+          const SizedBox(height: 160.0),
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: ElevatedButton.icon(
               onPressed: () async {
-                await _signOut(context); // Call the function to sign out the user
+                await _signOut(
+                    context); // Call the function to sign out the user
               },
               icon: const Icon(Icons.logout, color: Colors.white),
               label:
@@ -111,7 +112,3 @@ class Profile extends StatelessWidget {
     );
   }
 }
-
-
-
-

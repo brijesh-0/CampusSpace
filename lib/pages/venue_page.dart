@@ -10,6 +10,7 @@ class VenueDetailsPage extends StatefulWidget {
   final String capacity;
   final List<String> images;
   final String details;
+  final String location;
 
   const VenueDetailsPage({
     required this.displayName,
@@ -17,6 +18,7 @@ class VenueDetailsPage extends StatefulWidget {
     required this.capacity,
     required this.images,
     required this.details,
+    required this.location,
     super.key,
   });
 
@@ -64,11 +66,11 @@ class VenueDetailsPageState extends State<VenueDetailsPage> {
                       Text("Capacity: ${widget.capacity}"),
                     ],
                   ),
-                  const Row(
+                  Row(
                     children: [
-                      Icon(Icons.location_pin, size: 18.0),
-                      Padding(padding: EdgeInsets.only(right: 5.0)),
-                      Text("Ground Floor, PJ Block"),
+                      const Icon(Icons.location_pin, size: 18.0),
+                      const Padding(padding: EdgeInsets.only(right: 5.0)),
+                      Text(widget.location),
                     ],
                   ),
                   const SizedBox(height: 24),

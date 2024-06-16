@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:campus_space/widgets/venue_card.dart';
-import 'package:campus_space/models/testvenuemodel.dart'; // Import your Venue model class
+import 'package:campus_space/models/testvenuemodel.dart';
+import 'package:flutter/widgets.dart'; // Import your Venue model class
 
 class HomePage extends StatefulWidget {
   final String displayName;
-  const HomePage({Key? key, required this.displayName}) : super(key: key);
+  final String photoUrl;
+
+  const HomePage({
+    Key? key,
+    required this.displayName,
+    required this.photoUrl,
+  }) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -14,6 +21,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<String> selectedFilters = [];
   String searchText = '';
+  late String _photoUrl;
+
+  void initState() {
+    super.initState();
+    _photoUrl = widget.photoUrl; // Initialize _photoUrl in initState
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +35,11 @@ class _HomePageState extends State<HomePage> {
       child: ListView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         children: [
-          const Padding(
-              padding: EdgeInsets.only(left: 4.0, top: 15.0),
-              child: Text.rich(
+          //mainAxisAlignment: MainAxisAlignment.spaceAround,
+          Padding(
+            padding: EdgeInsets.only(left: 4.0, top: 15.0),
+            child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              const Text.rich(
                 TextSpan(
                   children: [
                     TextSpan(
@@ -46,8 +61,16 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
                 textAlign: TextAlign.left,
-              )),
-          const SizedBox(height: 16.0),
+              ),
+              SizedBox(width: 120.0),
+              CircleAvatar(
+                radius: 20.0,
+                backgroundImage: NetworkImage(_photoUrl),
+                // Replace with your image asset
+              ),
+            ]),
+          ),
+          const SizedBox(height: 20.0),
           Row(
             children: [
               Expanded(
@@ -202,7 +225,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          SizedBox(height: 6.0),
+          SizedBox(height: 0.0),
           StreamBuilder(
             stream:
                 FirebaseFirestore.instance.collection('testvenues').snapshots(),
@@ -230,11 +253,13 @@ class _HomePageState extends State<HomePage> {
               return Column(
                 children: filteredVenues.map((venue) {
                   return VenueCard(
-                      name: venue.name,
-                      displayName: widget.displayName,
-                      capacity: venue.capacity,
-                      imageUrl: venue.images,
-                      details: venue.details);
+                    name: venue.name,
+                    displayName: widget.displayName,
+                    capacity: venue.capacity,
+                    imageUrl: venue.images,
+                    details: venue.details,
+                    location: venue.location,
+                  );
                 }).toList(),
               );
             },

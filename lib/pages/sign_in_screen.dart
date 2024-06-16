@@ -38,7 +38,7 @@ class SignInScreen extends StatelessWidget {
         } else {
           await _auth.signOut();
           await _googleSignIn.signOut();
-          _showCustomSnackbar(context, 'Invalid email');
+          _showCustomSnackbar(context, 'Invalid College Email');
         }
       }
     } catch (error) {
@@ -62,7 +62,7 @@ class SignInScreen extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: Colors.red,
+        backgroundColor: const Color.fromARGB(255, 200, 40, 28),
         behavior: SnackBarBehavior.floating,
         margin: EdgeInsets.all(20),
         shape: RoundedRectangleBorder(
@@ -104,16 +104,15 @@ class SignInScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 48),
-                 
                 const SizedBox(height: 8),
-                 const Text(
+                const Text(
                   'Let\'s get you signed in!',
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.black54,
                   ),
                 ),
-               const SizedBox(height: 12),
+                const SizedBox(height: 12),
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
@@ -140,6 +139,3 @@ class SignInScreen extends StatelessWidget {
     );
   }
 }
-
-
-

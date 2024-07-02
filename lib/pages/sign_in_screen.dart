@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'landing.dart';
 
@@ -92,19 +93,40 @@ class SignInScreen extends StatelessWidget {
               children: [
                 Image.asset(
                   'assets/campusSpaceLogo.png', // Make sure to add your logo image to the assets folder and update the path
-                  height: 120,
+                  height: 180,
                 ),
-                SizedBox(height: 24),
-                const Text(
-                  'CampusSpace',
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                          text: 'Campus',
+                          style: GoogleFonts.poppins(
+                            fontSize: 44.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black, // Default color for 'Campus'
+                          )),
+                      TextSpan(
+                          text: 'Space',
+                          style: GoogleFonts.poppins(
+                            fontSize: 46.0,
+                            fontWeight: FontWeight.w500,
+                            color:
+                                Color(0xFF0066FF), // Default color for 'Campus'
+                          )),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 48),
-                const SizedBox(height: 8),
+                /*Text(
+                  "Simplifying Campus Reservations :)",
+                  style: GoogleFonts.poppins(
+                    fontSize: 14.0,
+                    height: 1.0,
+                    fontWeight: FontWeight.w500,
+                    color: Color.fromARGB(
+                        255, 0, 0, 0), // Default color for 'Campus'
+                  ),
+                ),*/
+                const SizedBox(height: 80),
                 const Text(
                   'Let\'s get you signed in!',
                   style: TextStyle(

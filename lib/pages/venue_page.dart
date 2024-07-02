@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:campus_space/widgets/amenities_list.dart';
 import 'package:campus_space/widgets/Booking_Form.dart';
+import 'package:campus_space/widgets/Calendar.dart';
 
 class VenueDetailsPage extends StatefulWidget {
   final String displayName;
@@ -118,7 +119,14 @@ class VenueDetailsPageState extends State<VenueDetailsPage> {
                   const SizedBox(height: 24),
                   Center(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  CalendarScreen(venue: widget.venuename)),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size.fromWidth(370.0),
                         backgroundColor: Color.fromARGB(255, 255, 255, 255),

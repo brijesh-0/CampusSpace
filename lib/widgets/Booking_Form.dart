@@ -159,7 +159,7 @@ class _BookingFormState extends State<BookingForm> {
         );
 
         dateTimeList.add({
-          "date": DateFormat('dd-MM-yyyy').format(date),
+          "date": DateFormat('yyyy-MM-dd').format(date),
           "start-time": _selectedStartTimes[i]!.format(context),
           "end-time": _selectedEndTimes[i]!.format(context),
         });

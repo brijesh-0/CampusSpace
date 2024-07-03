@@ -4,6 +4,8 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:campus_space/widgets/amenities_list.dart';
 import 'package:campus_space/widgets/Booking_Form.dart';
 import 'package:campus_space/widgets/Calendar.dart';
+import 'package:campus_space/models/bookingsmodel.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class VenueDetailsPage extends StatefulWidget {
   final String displayName;
@@ -28,8 +30,21 @@ class VenueDetailsPage extends StatefulWidget {
 }
 
 class VenueDetailsPageState extends State<VenueDetailsPage> {
+  List<Booking> bookings = [];
   bool isExpanded = false;
   int activeIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadBookings();
+  }
+
+  Future<void> _loadBookings() async {
+    bookings = await fetchBookingsForVenue(widget.venuename);
+    print(bookings);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -123,8 +138,9 @@ class VenueDetailsPageState extends State<VenueDetailsPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  CalendarScreen(venue: widget.venuename)),
+                              builder: (context) => CalendarScreen(
+                                    venue: widget.venuename,
+                                  )),
                         );
                       },
                       style: ElevatedButton.styleFrom(
@@ -165,7 +181,8 @@ class VenueDetailsPageState extends State<VenueDetailsPage> {
                               child: BookingForm(
                                   capacity: widget.capacity,
                                   venuename: widget.venuename,
-                                  userName: widget.displayName),
+                                  userName: widget.displayName,
+                                  bookings: bookings),
                             );
                           },
                         );
@@ -193,6 +210,17 @@ class VenueDetailsPageState extends State<VenueDetailsPage> {
         ),
       ),
     );
+  }
+
+  Future<List<Booking>> fetchBookingsForVenue(String venueName) async {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('bookings')
+        .where('venuename', isEqualTo: venueName)
+        .get();
+    print(snapshot.docs); // Print the fetched documents
+    return snapshot.docs
+        .map((doc) => Booking.fromMap(doc.data() as Map<String, dynamic>))
+        .toList();
   }
 
   Widget buildImageSlider() {

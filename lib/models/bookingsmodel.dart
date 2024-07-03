@@ -31,10 +31,10 @@ class Booking {
   }
 
   static DateTime _parseDateTime(String date, String time) {
-    final dateFormat = DateFormat('dd-MM-yyyy');
+    final dateFormat = DateFormat('yyyy-MM-dd');
     final timeFormat = DateFormat.jm();
     final dateTimeString = '$date $time';
-    final dateTimeFormat = DateFormat('dd-MM-yyyy hh:mm a');
+    final dateTimeFormat = DateFormat('yyyy-MM-dd hh:mm a');
     return dateTimeFormat.parse(dateTimeString);
   }
 }

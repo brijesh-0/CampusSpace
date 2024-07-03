@@ -38,44 +38,35 @@ class _CalendarScreenState extends State<CalendarScreen> {
         ),
         backgroundColor: Colors.white,
       ),
-      body: bookings.isEmpty
-          ? const Center(
-              child: Text(
-              "No Reservations!",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 0, 100, 250)),
-            ))
-          : CalendarControllerProvider(
-              controller: EventController()
-                ..addAll(
-                  bookings.expand((booking) {
-                    return booking.dateTimeRanges.map((dateTimeRange) {
-                      return CalendarEventData(
-                        title: booking.eventName,
-                        date: dateTimeRange.start,
-                        startTime: dateTimeRange.start,
-                        endTime: dateTimeRange.end,
-                        //description: 'Venue: ${booking.venueName}',
-                      );
-                    }).toList();
-                  }).toList(),
-                ),
-              child: MonthView(
-                minMonth: DateTime.now(),
-                onCellTap: (events, date) {
-                  print(date);
-                  print(bookings);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) =>
-                          DayViewScreen(date: date, bookings: bookings),
-                    ),
-                  );
-                },
+      body: CalendarControllerProvider(
+        controller: EventController()
+          ..addAll(
+            bookings.expand((booking) {
+              return booking.dateTimeRanges.map((dateTimeRange) {
+                return CalendarEventData(
+                  title: booking.eventName,
+                  date: dateTimeRange.start,
+                  startTime: dateTimeRange.start,
+                  endTime: dateTimeRange.end,
+                  //description: 'Venue: ${booking.venueName}',
+                );
+              }).toList();
+            }).toList(),
+          ),
+        child: MonthView(
+          minMonth: DateTime.now(),
+          onCellTap: (events, date) {
+            print(date);
+            //print(bookings);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => DayViewScreen(date: date, bookings: bookings),
               ),
-            ),
+            );
+          },
+        ),
+      ),
     );
   }
 
@@ -107,7 +98,10 @@ class DayViewScreen extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text(DateFormat.yMMMd().format(date)),
+          title: Text(
+            bookings[0].venueName,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           backgroundColor: Colors.white,
         ),
         body: CalendarControllerProvider(

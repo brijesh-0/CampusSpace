@@ -4,7 +4,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'landing.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({Key? key}) : super(key: key);
+
+  @override
+  _SignInScreen createState() => _SignInScreen();
+}
+
+class _SignInScreen extends State<SignInScreen> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -74,6 +81,18 @@ class SignInScreen extends StatelessWidget {
     );
   }
 
+  bool _firstTime = true;
+  @override
+  void initState() {
+    super.initState();
+    // Simulate a delay for first time app opening
+    Future.delayed(const Duration(milliseconds: 700), () {
+      setState(() {
+        _firstTime = false; // Set to false after delay to trigger animation
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,27 +114,35 @@ class SignInScreen extends StatelessWidget {
                   'assets/campusSpaceLogo.png', // Make sure to add your logo image to the assets folder and update the path
                   height: 180,
                 ),
-                Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                          text: 'Campus',
-                          style: GoogleFonts.poppins(
-                            fontSize: 44.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black, // Default color for 'Campus'
-                          )),
-                      TextSpan(
-                          text: 'Space',
-                          style: GoogleFonts.poppins(
-                            fontSize: 46.0,
-                            fontWeight: FontWeight.w500,
-                            color:
-                                Color(0xFF0066FF), // Default color for 'Campus'
-                          )),
-                    ],
-                  ),
-                ),
+                AnimatedOpacity(
+                    opacity:
+                        _firstTime ? 0.0 : 1.0, // Fade in if not the first time
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeInOut,
+                    child: Column(children: [
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Campus',
+                              style: GoogleFonts.poppins(
+                                fontSize: 44.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'Space',
+                              style: GoogleFonts.poppins(
+                                fontSize: 46.0,
+                                fontWeight: FontWeight.w500,
+                                color: Color(0xFF0066FF),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ])),
                 /*Text(
                   "Simplifying Campus Reservations :)",
                   style: GoogleFonts.poppins(

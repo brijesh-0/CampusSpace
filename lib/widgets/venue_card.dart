@@ -23,71 +23,85 @@ class VenueCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.only(top: 24.0),
-        child: SizedBox(
-            width: double.infinity,
-            child: Column(children: <Widget>[
-              Image.network(
-                imageUrl[0],
-                width: double.infinity,
-                height: 190,
-                fit: BoxFit.cover,
+        child: InkWell(
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => VenueDetailsPage(
+                displayName: displayName,
+                venuename: name,
+                capacity: capacity,
+                images: imageUrl,
+                details: details,
+                location: location,
               ),
-              const SizedBox(
-                height: 10.0,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          name,
-                          style: const TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          location,
-                          style:
-                              TextStyle(color: Color(0xFF9E9E9E), height: 0.0),
-                        )
-                      ],
-                    ),
-                    ElevatedButton(
-                        onPressed: () => {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => VenueDetailsPage(
-                                      displayName: displayName,
-                                      venuename: name,
-                                      capacity: capacity,
-                                      images: imageUrl,
-                                      details: details,
-                                      location: location)))
-                            },
-                        style: ElevatedButton.styleFrom(
-                          shadowColor:
-                              Color.fromARGB(255, 0, 0, 0), // Shadow color
-                          elevation: 10,
-                          fixedSize: Size.fromWidth(100.0),
-                          backgroundColor: const Color(0xFF0066FF),
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                        child: const Text("Book",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w400))),
-                  ],
+            ));
+          },
+          child: SizedBox(
+              width: double.infinity,
+              child: Column(children: <Widget>[
+                Image.network(
+                  imageUrl[0],
+                  width: double.infinity,
+                  height: 190,
+                  fit: BoxFit.cover,
                 ),
-              )
-            ])));
+                const SizedBox(
+                  height: 10.0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            name,
+                            style: const TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            location,
+                            style: TextStyle(
+                                color: Color(0xFF9E9E9E), height: 0.0),
+                          )
+                        ],
+                      ),
+                      ElevatedButton(
+                          onPressed: () => {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => VenueDetailsPage(
+                                        displayName: displayName,
+                                        venuename: name,
+                                        capacity: capacity,
+                                        images: imageUrl,
+                                        details: details,
+                                        location: location)))
+                              },
+                          style: ElevatedButton.styleFrom(
+                            shadowColor:
+                                Color.fromARGB(255, 0, 0, 0), // Shadow color
+                            elevation: 10,
+                            fixedSize: Size.fromWidth(100.0),
+                            backgroundColor: const Color(0xFF0066FF),
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
+                          child: const Text("Book",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w400))),
+                    ],
+                  ),
+                )
+              ])),
+        ));
     /*return Padding(
       padding: const EdgeInsets.only(top: 10.0),
       child: SizedBox(

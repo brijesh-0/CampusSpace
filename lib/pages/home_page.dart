@@ -62,12 +62,16 @@ class _HomePageState extends State<HomePage> {
                 ),
                 textAlign: TextAlign.left,
               ),
-              SizedBox(width: 120.0),
-              CircleAvatar(
-                radius: 20.0,
-                backgroundImage: NetworkImage(_photoUrl),
-                // Replace with your image asset
-              ),
+              //SizedBox(width: 120.0),
+              Expanded(
+                  child: Container(
+                alignment: Alignment.centerRight,
+                child: CircleAvatar(
+                  radius: 20.0,
+                  backgroundImage: NetworkImage(_photoUrl),
+                  // Replace with your image asset
+                ),
+              )),
             ]),
           ),
           const SizedBox(height: 20.0),

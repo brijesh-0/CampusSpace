@@ -63,7 +63,7 @@ class _LandingPageState extends State<LandingPage> {
       body: Stack(
         children: [
           Container(
-            child: PageView(
+            child: PageView( 
               controller: _pageController,
               onPageChanged: (index) {
                 setState(() {

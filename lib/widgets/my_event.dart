@@ -47,46 +47,47 @@ class MyEvent extends StatelessWidget {
                     const SizedBox(
                       height: 20.0,
                     ),
-                    Row(children: [
-                      ElevatedButton(
-                          onPressed: () => {},
-                          style: ElevatedButton.styleFrom(
-                            shadowColor: const Color.fromARGB(
-                                255, 0, 0, 0), // Shadow color
-                            elevation: 10,
-                            fixedSize: const Size.fromWidth(100.0),
-                            backgroundColor: Colors.red,
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                          ),
-                          child: const Text(
-                            "Reject",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w400),
-                          )),
-                      ElevatedButton(
-                          onPressed: () => {},
-                          style: ElevatedButton.styleFrom(
-                            shadowColor: const Color.fromARGB(
-                                255, 0, 0, 0), // Shadow color
-                            elevation: 10,
-                            fixedSize: const Size.fromWidth(100.0),
-                            backgroundColor: Colors.green,
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                          ),
-                          child: const Text(
-                            "Accept",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w400),
-                          )),
-                    ]),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ElevatedButton(
+                              onPressed: () => {},
+                              style: ElevatedButton.styleFrom(
+                                elevation: 0,
+                                fixedSize: const Size.fromWidth(100.0),
+                                backgroundColor: Colors.red,
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                              child: const Text(
+                                "Reject",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400),
+                              )),
+                          const SizedBox(width: 5),
+                          ElevatedButton(
+                              onPressed: () => {},
+                              style: ElevatedButton.styleFrom(
+                                elevation: 00,
+                                fixedSize: const Size.fromWidth(100.0),
+                                backgroundColor: Colors.green,
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                              child: const Text(
+                                "Accept",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400),
+                              )),
+                        ]),
                     const Text(
                       'Status Pending',
                       style: TextStyle(

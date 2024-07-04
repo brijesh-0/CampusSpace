@@ -2,6 +2,7 @@ import 'package:campus_space/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:campus_space/pages/my_events.dart';
 import 'package:campus_space/pages/profile.dart';
+import 'package:campus_space/utils/page_transition.dart';
 
 class LandingPage extends StatefulWidget {
   static const routeName = '/landing';
@@ -22,16 +23,16 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   int _selectedIndex = 0;
-  final PageController _pageController = PageController();
+  //final PageController _pageController = PageController();
 
   void _navigateBottomBar(int index) {
     setState(() {
       _selectedIndex = index;
-      _pageController.animateToPage(
-        index,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
+      // _pageController.animateToPage(
+      //   index,
+      //   duration: const Duration(milliseconds: 300),
+      //   curve: Curves.easeInOut,
+      // );
     });
   }
 
@@ -59,26 +60,27 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: Stack(
         children: [
-          Container(
-            child: PageView( 
-              controller: _pageController,
-              onPageChanged: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
-              children: _pages,
-            ),
+          PageTransition(
+            child: _pages[_selectedIndex],
+            // PageView(
+            //   controller: _pageController,
+            //   onPageChanged: (index) {
+            //     setState(() {
+            //       _selectedIndex = index;
+            //     });
+            //   },
+            //   children: _pages,
+            // ),
           ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
               margin: const EdgeInsets.all(18.0), // Margin for floating effect
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 255, 255, 255),
+                color: const Color.fromARGB(255, 255, 255, 255),
                 borderRadius: BorderRadius.circular(20.0),
                 boxShadow: const [
                   BoxShadow(
@@ -102,44 +104,7 @@ class _LandingPageState extends State<LandingPage> {
           ),
         ],
       ),
-    ); /*NavigationBar(
-        indicatorColor: Color(0xFF0066FF),
-        height: 75.0,
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
-        selectedIndex: _selectedIndex,
-        onDestinationSelected: _navigateBottomBar,
-        destinations: <Widget>[
-          NavigationDestination(
-            icon: _selectedIndex == 0
-                ? const Icon(
-                    Icons.home,
-                    color: Color.fromRGBO(255, 255, 255, 1),
-                  )
-                : const Icon(
-                    Icons.home_outlined,
-                  ),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            icon: _selectedIndex == 1
-                ? const Icon(
-                    Icons.event_available,
-                    color: Color.fromRGBO(255, 255, 255, 1),
-                  )
-                : const Icon(Icons.event_available_outlined),
-            label: 'My Events',
-          ),
-          NavigationDestination(
-            icon: _selectedIndex == 2
-                ? const Icon(
-                    Icons.person,
-                    color: Color.fromRGBO(255, 255, 255, 1),
-                  )
-                : const Icon(Icons.person_outline),
-            label: 'Profile',
-          ),
-        ],
-      ),*/
+    );
   }
 
   Widget _buildIconButton(
@@ -147,20 +112,20 @@ class _LandingPageState extends State<LandingPage> {
     return Container(
       decoration: BoxDecoration(
         color: _selectedIndex == index
-            ? Color.fromARGB(0, 0, 102, 255)
+            ? const Color.fromARGB(0, 0, 102, 255)
             : Colors.transparent,
         shape: BoxShape.circle,
       ),
       child: IconButton(
         icon: Icon(_selectedIndex == index ? selectedIcon : unselectedIcon,
             color: _selectedIndex == index
-                ? Color(0xFF0066FF)
-                : Color.fromARGB(255, 0, 0, 0)),
+                ? const Color(0xFF0066FF)
+                : const Color.fromARGB(255, 0, 0, 0)),
         onPressed: () => _navigateBottomBar(index),
         color: _selectedIndex == index
-            ? Color.fromARGB(255, 0, 55, 255)
-            : Color.fromARGB(255, 0, 0, 0),
-        padding: EdgeInsets.all(16.0),
+            ? const Color.fromARGB(255, 0, 55, 255)
+            : const Color.fromARGB(255, 0, 0, 0),
+        padding: const EdgeInsets.all(16.0),
       ),
     );
   }

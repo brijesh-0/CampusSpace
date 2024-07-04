@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           //mainAxisAlignment: MainAxisAlignment.spaceAround,
           Padding(
-            padding: EdgeInsets.only(left: 4.0, top: 15.0),
+            padding: const EdgeInsets.only(left: 4.0, top: 15.0),
             child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
               const Text.rich(
                 TextSpan(
@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                     },
                     cursorColor: Colors.grey,
                     decoration: InputDecoration(
-                      fillColor: Color.fromARGB(118, 223, 223, 223),
+                      fillColor: const Color.fromARGB(118, 223, 223, 223),
                       filled: true,
                       contentPadding: const EdgeInsets.symmetric(
                         vertical: 10.0,
@@ -156,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                       updateFilters('auditorium', isSelected);
                     },
                     backgroundColor: Colors.white,
-                    selectedColor: Color(0xFF0066FF),
+                    selectedColor: const Color(0xFF0066FF),
                     checkmarkColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
@@ -177,7 +177,7 @@ class _HomePageState extends State<HomePage> {
                       updateFilters('lab', isSelected);
                     },
                     backgroundColor: Colors.white,
-                    selectedColor: Color(0xFF0066FF),
+                    selectedColor: const Color(0xFF0066FF),
                     checkmarkColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
@@ -198,7 +198,7 @@ class _HomePageState extends State<HomePage> {
                       updateFilters('seminar hall', isSelected);
                     },
                     backgroundColor: Colors.white,
-                    selectedColor: Color(0xFF0066FF),
+                    selectedColor: const Color(0xFF0066FF),
                     checkmarkColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
@@ -219,7 +219,7 @@ class _HomePageState extends State<HomePage> {
                       updateFilters('Outdoor', isSelected);
                     },
                     backgroundColor: Colors.white,
-                    selectedColor: Color(0xFF0066FF),
+                    selectedColor: const Color(0xFF0066FF),
                     checkmarkColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
@@ -229,7 +229,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          SizedBox(height: 0.0),
+          const SizedBox(height: 0.0),
           StreamBuilder(
             stream:
                 FirebaseFirestore.instance.collection('testvenues').snapshots(),
@@ -268,6 +268,7 @@ class _HomePageState extends State<HomePage> {
               );
             },
           ),
+          const SizedBox(height: 110),
         ],
       ),
     );

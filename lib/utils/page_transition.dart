@@ -10,7 +10,7 @@ class PageTransition extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageTransitionSwitcher(
       // Replace PageView.builder
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 400),
       transitionBuilder: (
         Widget child,
         Animation<double> animation,

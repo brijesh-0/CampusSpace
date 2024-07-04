@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:campus_space/pages/venue_page.dart';
 
@@ -39,12 +40,27 @@ class VenueCard extends StatelessWidget {
           child: SizedBox(
               width: double.infinity,
               child: Column(children: <Widget>[
-                Image.network(
-                  imageUrl[0],
-                  width: double.infinity,
-                  height: 190,
-                  fit: BoxFit.cover,
+                CachedNetworkImage(
+                  imageUrl: imageUrl[0],
+                  imageBuilder: (context, imageProvider) => Container(
+                    width: double.infinity,
+                    height: 190,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  placeholder: (context, url) => const CircularProgressIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
+                // Image.network(
+                //   imageUrl[0],
+                //   width: double.infinity,
+                //   height: 190,
+                //   fit: BoxFit.cover,
+                // ),
                 const SizedBox(
                   height: 10.0,
                 ),
@@ -66,7 +82,7 @@ class VenueCard extends StatelessWidget {
                           ),
                           Text(
                             location,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Color(0xFF9E9E9E), height: 0.0),
                           )
                         ],
@@ -84,9 +100,9 @@ class VenueCard extends StatelessWidget {
                               },
                           style: ElevatedButton.styleFrom(
                             shadowColor:
-                                Color.fromARGB(255, 0, 0, 0), // Shadow color
+                                const Color.fromARGB(255, 0, 0, 0), // Shadow color
                             elevation: 10,
-                            fixedSize: Size.fromWidth(100.0),
+                            fixedSize: const Size.fromWidth(100.0),
                             backgroundColor: const Color(0xFF0066FF),
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             shape: RoundedRectangleBorder(

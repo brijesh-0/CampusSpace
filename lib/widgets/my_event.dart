@@ -24,30 +24,71 @@ class MyEvent extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            const Padding(
-                padding: EdgeInsets.only(left: 12.0),
+            Padding(
+                padding: const EdgeInsets.only(left: 12.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
+                    const Text(
                       'Auditorium 1',
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
-                    Row(children: [
+                    const Row(children: [
                       Text("Event: ",
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       Text('My Event'),
                     ]),
-                    Row(children: [
+                    const Row(children: [
                       Text("Date: ",
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       Text('3:30pm, 5 June 2024')
                     ]),
-                    SizedBox(
+                    const SizedBox(
                       height: 20.0,
                     ),
-                    Text(
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ElevatedButton(
+                              onPressed: () => {},
+                              style: ElevatedButton.styleFrom(
+                                elevation: 0,
+                                fixedSize: const Size.fromWidth(100.0),
+                                backgroundColor: Colors.red,
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                              child: const Text(
+                                "Reject",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400),
+                              )),
+                          const SizedBox(width: 5),
+                          ElevatedButton(
+                              onPressed: () => {},
+                              style: ElevatedButton.styleFrom(
+                                elevation: 00,
+                                fixedSize: const Size.fromWidth(100.0),
+                                backgroundColor: Colors.green,
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                              child: const Text(
+                                "Accept",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400),
+                              )),
+                        ]),
+                    const Text(
                       'Status Pending',
                       style: TextStyle(
                           fontStyle: FontStyle.italic,

@@ -12,9 +12,8 @@ class MyEvents extends StatelessWidget {
       child: ListView(
         children: [
           Padding(
-              padding: EdgeInsets.only(left: 4.0, top: 15.0),
+              padding: const EdgeInsets.only(left: 4.0, top: 15.0),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text.rich(
                     TextSpan(
@@ -40,17 +39,21 @@ class MyEvents extends StatelessWidget {
                     ),
                     textAlign: TextAlign.left,
                   ),
-                  SizedBox(width: 100.0),
-                  CircleAvatar(
-                    radius: 20.0,
-                    backgroundImage: NetworkImage(photoUrl),
-                    // Replace with your image asset
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.centerRight,
+                      child: CircleAvatar(
+                        radius: 20.0,
+                        backgroundImage: NetworkImage(photoUrl),
+                        // Replace with your image asset
+                      ),
+                    ),
                   ),
                 ],
               )),
-          SizedBox(height: 15.0),
-          MyEvent(),
-          MyEvent(),
+          const SizedBox(height: 15.0),
+          const MyEvent(),
+          const MyEvent(),
           // Adding some space between text and TextField
         ],
       ),

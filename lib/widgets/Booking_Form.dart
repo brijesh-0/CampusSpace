@@ -390,7 +390,8 @@ class _BookingFormState extends State<BookingForm> {
                   },
                 ),
                 const SizedBox(
-                  height: 8.0,
+                  height: 5.0,
+                  width: 0.0,
                 ),
                 // Event Date Picker
                 /*ListTile(
@@ -400,18 +401,29 @@ class _BookingFormState extends State<BookingForm> {
                       : 'Date: ${DateFormat('yyyy-MM-dd').format(_selectedDate!)}'),
                   onTap: () => _selectDate(context),
                 ),*/
-                ListTile(
-                  leading: const Icon(Icons.calendar_today),
-                  title: Row(
-                    children: [
-                      const Text('Number of Days for Reservation:'),
-                      const SizedBox(width: 5),
-                      DropdownButton<int>(
+                //ListTile(
+                //leading: const Icon(Icons.calendar_today),
+                //title:
+                Row(
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: const Expanded(
+                        child: Icon(Icons.calendar_today),
+                      ),
+                    ),
+                    const SizedBox(width: 15),
+                    const Text('Number of Days for Reservation:'),
+                    //const SizedBox(width: 5),
+                    Expanded(
+                        child: Container(
+                      alignment: Alignment.centerRight,
+                      child: DropdownButton<int>(
                         value: _numberOfDays,
                         items: List.generate(10, (index) => index + 1)
                             .map((e) => DropdownMenuItem<int>(
-                                  child: Text(e.toString()),
                                   value: e,
+                                  child: Text(e.toString()),
                                 ))
                             .toList(),
                         onChanged: (value) {
@@ -426,9 +438,10 @@ class _BookingFormState extends State<BookingForm> {
                           });
                         },
                       ),
-                    ],
-                  ),
+                    )),
+                  ],
                 ),
+                //),
                 for (int i = 0; i < _numberOfDays; i++)
                   Column(children: [
                     if (_numberOfDays > 1)

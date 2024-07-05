@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
       useMaterial3: true,
+      scaffoldBackgroundColor: Colors.white,
       primaryColor: const Color(0xFF0066FF),
       brightness: Brightness.light,
       inputDecorationTheme: const InputDecorationTheme(

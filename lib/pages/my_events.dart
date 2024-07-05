@@ -7,55 +7,58 @@ class MyEvents extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15.0),
-      child: ListView(
-        children: [
-          Padding(
-              padding: const EdgeInsets.only(left: 4.0, top: 15.0),
-              child: Row(
-                children: [
-                  const Text.rich(
-                    TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'My ',
-                          style: TextStyle(
-                            fontSize: 28.0,
-                            fontWeight: FontWeight.bold,
-                            color:
-                                Colors.black, // Default color for 'Find Your'
+    return Container(
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15.0),
+        child: ListView(
+          children: [
+            Padding(
+                padding: const EdgeInsets.only(left: 4.0, top: 15.0),
+                child: Row(
+                  children: [
+                    const Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'My ',
+                            style: TextStyle(
+                              fontSize: 28.0,
+                              fontWeight: FontWeight.bold,
+                              color:
+                                  Colors.black, // Default color for 'Find Your'
+                            ),
                           ),
-                        ),
-                        TextSpan(
-                          text: 'Reservations',
-                          style: TextStyle(
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF0066FF), // Color for 'Venue'
+                          TextSpan(
+                            text: 'Reservations',
+                            style: TextStyle(
+                              fontSize: 30.0,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF0066FF), // Color for 'Venue'
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
+                      textAlign: TextAlign.left,
                     ),
-                    textAlign: TextAlign.left,
-                  ),
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.centerRight,
-                      child: CircleAvatar(
-                        radius: 20.0,
-                        backgroundImage: NetworkImage(photoUrl),
-                        // Replace with your image asset
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.centerRight,
+                        child: CircleAvatar(
+                          radius: 20.0,
+                          backgroundImage: NetworkImage(photoUrl),
+                          // Replace with your image asset
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              )),
-          const SizedBox(height: 15.0),
-          const MyEvent(),
-          const MyEvent(),
-          // Adding some space between text and TextField
-        ],
+                  ],
+                )),
+            const SizedBox(height: 15.0),
+            const MyEvent(),
+            const MyEvent(),
+            // Adding some space between text and TextField
+          ],
+        ),
       ),
     );
   }

@@ -52,7 +52,8 @@ class VenueCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  placeholder: (context, url) => const CircularProgressIndicator(),
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
                 // Image.network(
@@ -99,8 +100,8 @@ class VenueCard extends StatelessWidget {
                                         location: location)))
                               },
                           style: ElevatedButton.styleFrom(
-                            shadowColor:
-                                const Color.fromARGB(255, 0, 0, 0), // Shadow color
+                            shadowColor: const Color.fromARGB(
+                                255, 0, 0, 0), // Shadow color
                             elevation: 10,
                             fixedSize: const Size.fromWidth(100.0),
                             backgroundColor: const Color(0xFF0066FF),

@@ -80,7 +80,7 @@ class _LandingPageState extends State<LandingPage> {
             child: Container(
               margin: const EdgeInsets.all(18.0), // Margin for floating effect
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 255, 255, 255),
+                color: Color.fromARGB(255, 255, 255, 255),
                 borderRadius: BorderRadius.circular(20.0),
                 boxShadow: const [
                   BoxShadow(

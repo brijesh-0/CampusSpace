@@ -192,11 +192,11 @@ class _BookingFormState extends State<BookingForm> {
 
     try {
       String fileName = DateTime.now().millisecondsSinceEpoch.toString();
-      Reference ref = _storage.ref().child('Event_posters').child(fileName);
+      Reference ref = _storage.ref().child('Event_posters/').child(fileName);
       print(ref);
       UploadTask uploadTask = ref.putFile(File(_selectedImageFile!.path));
       print(uploadTask);
-      TaskSnapshot taskSnapshot = await uploadTask;
+      TaskSnapshot taskSnapshot = await uploadTask!.whenComplete(() {});
 
       _uploadedImageUrl = await taskSnapshot.ref.getDownloadURL();
     } catch (e) {

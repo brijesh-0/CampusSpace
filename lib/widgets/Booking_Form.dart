@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 import 'package:campus_space/models/bookingsmodel.dart';
-//import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 
 class BookingForm extends StatefulWidget {
@@ -26,8 +26,10 @@ class BookingForm extends StatefulWidget {
 class _BookingFormState extends State<BookingForm> {
   final _formKey = GlobalKey<FormState>();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  //final FirebaseStorage _storage = FirebaseStorage.instance;
-  File? _selectedImageFile;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+  //File? _selectedImageFile;
+  final ImagePicker _picker = ImagePicker();
+  XFile? _selectedImageFile;
   final List<DateTime?> _selectedDates = [null];
   final List<TimeOfDay?> _selectedStartTimes = [null];
   final List<TimeOfDay?> _selectedEndTimes = [null];
@@ -161,12 +163,22 @@ class _BookingFormState extends State<BookingForm> {
     return true;
   }
 
-  Future<void> _selectImage() async {
+  /*Future<void> _selectImage() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       setState(() {
         _selectedImageFile = File(pickedFile.path);
+      });
+    }
+  }*/
+
+  Future<void> _pickImage() async {
+    final XFile? pickedImage =
+        await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      setState(() {
+        _selectedImageFile = pickedImage;
       });
     }
   }
@@ -178,25 +190,30 @@ class _BookingFormState extends State<BookingForm> {
       _isUploadingImage = true;
     });
 
-    /*try {
+    try {
       String fileName = DateTime.now().millisecondsSinceEpoch.toString();
-      Reference ref = _storage.ref().child('event_posters').child(fileName);
-      UploadTask uploadTask = ref.putFile(_selectedImageFile!);
+      Reference ref = _storage.ref().child('Event_posters').child(fileName);
+      print(ref);
+      UploadTask uploadTask = ref.putFile(File(_selectedImageFile!.path));
+      print(uploadTask);
       TaskSnapshot taskSnapshot = await uploadTask;
+
       _uploadedImageUrl = await taskSnapshot.ref.getDownloadURL();
     } catch (e) {
       print('Error uploading image: $e');
     } finally {
+      print('alskdsjkdsf');
       setState(() {
         _isUploadingImage = false;
       });
-    }*/
+    }
   }
 
   void _submitBooking() async {
     if (_formKey.currentState!.validate() && _agreedToTerms) {
       print("calledddd");
       _formKey.currentState!.save();
+
       await _uploadImage();
 
       List<Map<String, dynamic>> dateTimeList = [];
@@ -599,7 +616,7 @@ class _BookingFormState extends State<BookingForm> {
                     const Text("Event Poster:"),
                     if (_selectedImageFile != null)
                       Image.file(
-                        _selectedImageFile!,
+                        File(_selectedImageFile!.path),
                         width: 100,
                         height: 100,
                         fit: BoxFit.cover,
@@ -609,7 +626,7 @@ class _BookingFormState extends State<BookingForm> {
                         Icons.image,
                         size: 25.0,
                       ),
-                      onPressed: _selectImage,
+                      onPressed: _pickImage,
                     ),
                   ],
                 ),

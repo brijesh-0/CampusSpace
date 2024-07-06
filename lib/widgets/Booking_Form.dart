@@ -6,6 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:campus_space/models/bookingsmodel.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
+import 'package:uuid/uuid.dart';
+
+var uuid = const Uuid();
 
 class BookingForm extends StatefulWidget {
   final String userName;
@@ -191,7 +194,8 @@ class _BookingFormState extends State<BookingForm> {
     });
 
     try {
-      String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+      String fileName =
+          _eventName! + DateTime.now().millisecondsSinceEpoch.toString();
       Reference ref = _storage.ref().child('Event_posters/').child(fileName);
       print(ref);
       UploadTask uploadTask = ref.putFile(File(_selectedImageFile!.path));
@@ -202,7 +206,6 @@ class _BookingFormState extends State<BookingForm> {
     } catch (e) {
       print('Error uploading image: $e');
     } finally {
-      print('alskdsjkdsf');
       setState(() {
         _isUploadingImage = false;
       });
@@ -211,7 +214,7 @@ class _BookingFormState extends State<BookingForm> {
 
   void _submitBooking() async {
     if (_formKey.currentState!.validate() && _agreedToTerms) {
-      print("calledddd");
+      print("called");
       _formKey.currentState!.save();
 
       await _uploadImage();
@@ -236,6 +239,7 @@ class _BookingFormState extends State<BookingForm> {
 
       // Push booking information to Firestore
       await _firestore.collection('bookings').add({
+        'id': uuid.v4(),
         'clubName': widget.userName,
         'eventName': _eventName,
         'eventDescription': _eventDescription,

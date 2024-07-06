@@ -19,7 +19,7 @@ class PageTransition extends StatelessWidget {
         return FadeThroughTransition(
           animation: animation,
           secondaryAnimation: secondaryAnimation,
-          fillColor: Theme.of(context).colorScheme.surface,
+          fillColor: Color.fromARGB(255, 255, 255, 255),
           child: child,
         );
       },

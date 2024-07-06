@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:campus_space/widgets/my_event.dart';
+import 'package:campus_space/services/reservation_service.dart';
+import 'package:campus_space/models/reservationmodel.dart';
 
 class MyEvents extends StatelessWidget {
   final String photoUrl;
@@ -55,6 +57,31 @@ class MyEvents extends StatelessWidget {
           const MyEvent(),
           const MyEvent(),
           // Adding some space between text and TextField
+          StreamBuilder<List<ReservationModel>>(
+            stream: ReservationsApi()
+                .fetchReservations(email: "brijesh.cs22@bmsce.ac.in"),
+            builder: (BuildContext context,
+                AsyncSnapshot<List<ReservationModel>> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (snapshot.hasError) {
+                return Center(child: Text('Error: ${snapshot.error}'));
+              }
+              if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                return const Center(child: Text('No reservations found.'));
+              }
+              // Process your data here
+              List<ReservationModel> reservations = snapshot.data!;
+              return ListView.builder(
+                itemCount: reservations.length,
+                itemBuilder: (context, index) {
+                  ReservationModel reservation = reservations[index];
+                  return const MyEvent();
+                },
+              );
+            },
+          ),
         ],
       ),
     );

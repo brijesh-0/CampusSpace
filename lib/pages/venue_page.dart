@@ -13,6 +13,7 @@ class VenueDetailsPage extends StatefulWidget {
   final String capacity;
   final List<String> images;
   final String details;
+  final List<dynamic> amenities;
   final String location;
   final Map faculty;
 
@@ -21,6 +22,7 @@ class VenueDetailsPage extends StatefulWidget {
     required this.venuename,
     required this.capacity,
     required this.images,
+    required this.amenities,
     required this.details,
     required this.location,
     required this.faculty,
@@ -78,19 +80,67 @@ class VenueDetailsPageState extends State<VenueDetailsPage> {
                   ),
                   const SizedBox(height: 3),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Icon(Icons.people_alt_outlined, size: 18.0),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(Icons.people_alt_outlined, size: 18.0),
+                              const Padding(
+                                  padding: EdgeInsets.only(right: 5.0)),
+                              Text("Capacity: ${widget.capacity}"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              const Icon(Icons.location_pin, size: 18.0),
+                              const Padding(
+                                  padding: EdgeInsets.only(right: 5.0)),
+                              Text(widget.location),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(Icons.person, size: 18.0),
+                              const Padding(
+                                  padding: EdgeInsets.only(right: 5.0)),
+                              Text(widget.faculty['name']),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              const Icon(Icons.email, size: 18.0),
+                              const Padding(
+                                  padding: EdgeInsets.only(right: 5.0)),
+                              Text(widget.faculty['email']),
+                            ],
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+
+                  /*Row(
+                    children: [
+                      const Icon(Icons.person, size: 18.0),
                       const Padding(padding: EdgeInsets.only(right: 5.0)),
-                      Text("Capacity: ${widget.capacity}"),
+                      Text("FIC: Dr Jyothi S Nayak"),
                     ],
                   ),
                   Row(
                     children: [
-                      const Icon(Icons.location_pin, size: 18.0),
-                      const Padding(padding: EdgeInsets.only(right: 5.0)),
-                      Text(widget.location),
+                      const Padding(padding: EdgeInsets.only(right: 22.0)),
+                      Text("- hod.cse@bmsce.ac.in"),
                     ],
-                  ),
+                  ),*/
                   const SizedBox(height: 24),
                   const Text(
                     'Details',
@@ -132,7 +182,7 @@ class VenueDetailsPageState extends State<VenueDetailsPage> {
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
-                  buildAmenitiesList(),
+                  buildAmenitiesList(widget.amenities),
                   const SizedBox(height: 24),
                   Center(
                     child: ElevatedButton(

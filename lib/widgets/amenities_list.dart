@@ -1,12 +1,40 @@
 import 'package:flutter/material.dart';
 
-Widget buildAmenitiesList() {
-  final amenities = [
+IconData getIconData(String iconName) {
+  switch (iconName) {
+    case 'Icons.wifi':
+      return Icons.wifi;
+    case 'Icons.tv':
+      return Icons.tv;
+    case 'Icons.ac_unit':
+      return Icons.ac_unit;
+    case 'Icons.speaker':
+      return Icons.speaker;
+    case 'Icons.computer':
+      return Icons.computer;
+    default:
+      return Icons.help; // Default icon if not found
+  }
+}
+
+List<Map<String, dynamic>> convertAmenities(
+    List<Map<dynamic, dynamic>> amenities) {
+  return amenities.map((amenity) {
+    return {
+      'icon': getIconData(amenity['icon']),
+      'text': amenity['text'],
+    };
+  }).toList();
+}
+
+Widget buildAmenitiesList(amenitiesData) {
+  List<Map<String, dynamic>> amenities = convertAmenities(amenitiesData);
+  /*final amenities = [
     {'icon': Icons.wifi, 'text': 'Wi-Fi'},
     {'icon': Icons.tv, 'text': 'Screen'},
     {'icon': Icons.ac_unit, 'text': 'AC'},
     {'icon': Icons.speaker, 'text': 'Speakers'}
-  ];
+  ];*/
 
   return Container(
     height: 100,

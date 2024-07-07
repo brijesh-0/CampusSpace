@@ -267,6 +267,7 @@ class _HomePageState extends State<HomePage> {
                       imageUrl: venue.images,
                       details: venue.details,
                       location: venue.location,
+                      amenities: venue.amenities,
                       faculty: venue.faculty,
                     );
                   }).toList(),

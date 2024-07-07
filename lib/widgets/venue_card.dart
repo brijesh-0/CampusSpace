@@ -9,12 +9,14 @@ class VenueCard extends StatelessWidget {
   final List<String> imageUrl;
   final String details;
   final String location;
+  final List<dynamic> amenities;
   final Map faculty;
 
   const VenueCard({
     required this.displayName,
     required this.name,
     required this.capacity,
+    required this.amenities,
     required this.imageUrl,
     required this.details,
     required this.location,
@@ -35,6 +37,7 @@ class VenueCard extends StatelessWidget {
                 capacity: capacity,
                 images: imageUrl,
                 details: details,
+                amenities: amenities,
                 location: location,
                 faculty: faculty,
               ),
@@ -99,6 +102,7 @@ class VenueCard extends StatelessWidget {
                                           venuename: name,
                                           capacity: capacity,
                                           images: imageUrl,
+                                          amenities: amenities,
                                           details: details,
                                           location: location,
                                           faculty: faculty,

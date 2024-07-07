@@ -9,12 +9,14 @@ class LandingPage extends StatefulWidget {
 
   final String displayName;
   final String photoUrl;
+  final String email;
   final Future<void> Function() onSignOut;
 
   LandingPage({
     required this.displayName,
     required this.photoUrl,
     required this.onSignOut,
+    required this.email,
   });
 
   @override
@@ -48,6 +50,7 @@ class _LandingPageState extends State<LandingPage> {
       ),
       MyEvents(
         photoUrl: widget.photoUrl,
+        email: widget.email,
       ),
       Profile(
         displayName: widget.displayName,

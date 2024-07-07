@@ -40,6 +40,7 @@ class _SignInScreen extends State<SignInScreen> {
                 displayName: user.displayName ?? 'No Name',
                 photoUrl: user.photoURL ?? '',
                 onSignOut: _signOut,
+                email: user.email ?? "nomail",
               ),
             ),
           );

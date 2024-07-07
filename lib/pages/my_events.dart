@@ -5,7 +5,8 @@ import 'package:campus_space/models/reservationmodel.dart';
 
 class MyEvents extends StatelessWidget {
   final String photoUrl;
-  const MyEvents({super.key, required this.photoUrl});
+  final String email;
+  const MyEvents({super.key, required this.photoUrl, required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +55,9 @@ class MyEvents extends StatelessWidget {
                 ],
               )),
           const SizedBox(height: 15.0),
-          const MyEvent(),
-          const MyEvent(),
           // Adding some space between text and TextField
-          StreamBuilder<List<ReservationModel>>(
-            stream: ReservationsApi()
-                .fetchReservations(email: "brijesh.cs22@bmsce.ac.in"),
+          FutureBuilder<List<ReservationModel>>(
+            future: ReservationsApi().fetchReservations(email: email),
             builder: (BuildContext context,
                 AsyncSnapshot<List<ReservationModel>> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -71,14 +69,20 @@ class MyEvents extends StatelessWidget {
               if (!snapshot.hasData || snapshot.data!.isEmpty) {
                 return const Center(child: Text('No reservations found.'));
               }
-              // Process your data here
+
               List<ReservationModel> reservations = snapshot.data!;
-              return ListView.builder(
-                itemCount: reservations.length,
-                itemBuilder: (context, index) {
-                  ReservationModel reservation = reservations[index];
-                  return const MyEvent();
-                },
+              return Column(
+                children: reservations.map((reservation) {
+                  return MyEvent(
+                    eventName: reservation.eventName,
+                    time: reservation.dateTimeList[0].startTime,
+                    date: reservation.dateTimeList[0].date,
+                    venue: reservation.venueName,
+                    status: reservation.status,
+                    posterUrl: reservation.posterUrl ??
+                        "https://t4.ftcdn.net/jpg/04/00/24/31/360_F_400243185_BOxON3h9avMUX10RsDkt3pJ8iQx72kS3.jpg",
+                  );
+                }).toList(),
               );
             },
           ),

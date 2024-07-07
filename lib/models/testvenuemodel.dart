@@ -5,6 +5,7 @@ class Venue {
   final String venueType;
   final String details;
   final String location;
+  final Map faculty;
 
   Venue(
       {required this.name,
@@ -12,7 +13,8 @@ class Venue {
       required this.images,
       required this.venueType,
       required this.details,
-      required this.location});
+      required this.location,
+      required this.faculty});
 
   factory Venue.fromMap(Map<String, dynamic>? map) {
     if (map == null) {
@@ -26,6 +28,7 @@ class Venue {
       images: List<String>.from(map['images'] as List<dynamic>? ?? []),
       venueType: map['venueType'] as String? ?? '',
       location: map['location'] as String? ?? '',
+      faculty: map['Faculty'] as Map? ?? {},
     );
   }
 }

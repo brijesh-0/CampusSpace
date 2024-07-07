@@ -15,12 +15,14 @@ class BookingForm extends StatefulWidget {
   final String venuename;
   final String capacity;
   final List<Booking> bookings;
+  final Map faculty;
 
   const BookingForm(
       {required this.venuename,
       required this.capacity,
       required this.userName,
       required this.bookings,
+      required this.faculty,
       super.key});
   @override
   _BookingFormState createState() => _BookingFormState();
@@ -249,7 +251,9 @@ class _BookingFormState extends State<BookingForm> {
         'contactPhone': _contactPhone,
         'dateTimeList': dateTimeList,
         'attendee_no': _numAttendees,
+        'faculty': widget.faculty,
         'isConfirmed': false,
+        'status': "Status Pending",
         'poster_url':
             _uploadedImageUrl, // Store date and time as a string or timestamp
       });

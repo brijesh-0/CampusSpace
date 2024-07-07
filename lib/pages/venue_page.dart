@@ -14,6 +14,7 @@ class VenueDetailsPage extends StatefulWidget {
   final List<String> images;
   final String details;
   final String location;
+  final Map faculty;
 
   const VenueDetailsPage({
     required this.displayName,
@@ -22,6 +23,7 @@ class VenueDetailsPage extends StatefulWidget {
     required this.images,
     required this.details,
     required this.location,
+    required this.faculty,
     super.key,
   });
 
@@ -182,6 +184,7 @@ class VenueDetailsPageState extends State<VenueDetailsPage> {
                                   capacity: widget.capacity,
                                   venuename: widget.venuename,
                                   userName: widget.displayName,
+                                  faculty: widget.faculty,
                                   bookings: bookings),
                             );
                           },

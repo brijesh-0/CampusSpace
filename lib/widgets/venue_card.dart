@@ -9,6 +9,7 @@ class VenueCard extends StatelessWidget {
   final List<String> imageUrl;
   final String details;
   final String location;
+  final Map faculty;
 
   const VenueCard({
     required this.displayName,
@@ -17,6 +18,7 @@ class VenueCard extends StatelessWidget {
     required this.imageUrl,
     required this.details,
     required this.location,
+    required this.faculty,
     Key? key,
   }) : super(key: key);
 
@@ -34,6 +36,7 @@ class VenueCard extends StatelessWidget {
                 images: imageUrl,
                 details: details,
                 location: location,
+                faculty: faculty,
               ),
             ));
           },
@@ -92,12 +95,14 @@ class VenueCard extends StatelessWidget {
                           onPressed: () => {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => VenueDetailsPage(
-                                        displayName: displayName,
-                                        venuename: name,
-                                        capacity: capacity,
-                                        images: imageUrl,
-                                        details: details,
-                                        location: location)))
+                                          displayName: displayName,
+                                          venuename: name,
+                                          capacity: capacity,
+                                          images: imageUrl,
+                                          details: details,
+                                          location: location,
+                                          faculty: faculty,
+                                        )))
                               },
                           style: ElevatedButton.styleFrom(
                             shadowColor: const Color.fromARGB(

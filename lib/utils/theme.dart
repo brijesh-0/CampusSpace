@@ -20,6 +20,7 @@ class AppTheme {
       ));
   static ThemeData darkTheme = ThemeData(
       useMaterial3: true,
+      scaffoldBackgroundColor: Colors.black,
       brightness: Brightness.dark,
       textTheme: TextTheme(bodyMedium: GoogleFonts.poppins()));
 }

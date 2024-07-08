@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:campus_space/services/reservation_service.dart';
+import 'package:intl/intl.dart';
 
 class MyEvent extends StatefulWidget {
   final String eventName;
   final String venue;
   final String status;
-  final String time;
-  final String date;
+  final DateTime startTime;
+  final DateTime endTime;
   final String posterUrl;
+  final String reservationId;
 
   const MyEvent({
     super.key,
     required this.eventName,
     required this.venue,
     required this.status,
-    required this.time,
-    required this.date,
+    required this.startTime,
+    required this.endTime,
     required this.posterUrl,
+    required this.reservationId,
   });
 
   @override
@@ -25,6 +29,7 @@ class MyEvent extends StatefulWidget {
 
 class _MyEventState extends State<MyEvent> {
   bool isAdmin = false;
+  final dateFormat = DateFormat('dd/MMM/yy,').add_jm();
 
   @override
   void initState() {
@@ -65,7 +70,7 @@ class _MyEventState extends State<MyEvent> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    widget.venue,
+                    widget.venue.toString(),
                     style: const TextStyle(
                         fontSize: 24, fontWeight: FontWeight.bold),
                   ),
@@ -77,12 +82,8 @@ class _MyEventState extends State<MyEvent> {
                   Row(children: [
                     const Text("Date: ",
                         style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text(widget.date)
-                  ]),
-                  Row(children: [
-                    const Text("time: ",
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    Text(widget.time)
+                    Text(dateFormat
+                        .format(DateTime.parse(widget.startTime.toString())))
                   ]),
                   const SizedBox(
                     height: 13.0,
@@ -92,7 +93,11 @@ class _MyEventState extends State<MyEvent> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                               ElevatedButton(
-                                  onPressed: () => {},
+                                  onPressed: () async => {
+                                        await ReservationsApi()
+                                            .deleteReservation(
+                                                widget.reservationId)
+                                      },
                                   style: ElevatedButton.styleFrom(
                                     elevation: 0,
                                     fixedSize: const Size.fromWidth(100.0),
@@ -111,7 +116,11 @@ class _MyEventState extends State<MyEvent> {
                                   )),
                               const SizedBox(width: 5),
                               ElevatedButton(
-                                  onPressed: () => {},
+                                  onPressed: () async => {
+                                        await ReservationsApi()
+                                            .acceptReservation(
+                                                widget.reservationId)
+                                      },
                                   style: ElevatedButton.styleFrom(
                                     elevation: 00,
                                     fixedSize: const Size.fromWidth(100.0),

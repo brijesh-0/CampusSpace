@@ -32,7 +32,7 @@ class ReservationsApi {
         DocumentReference docRef = querySnapshot.docs.first.reference;
 
         // Update the status field for the matching document
-        await docRef.update({'status': 'accepted'});
+        await docRef.update({'status': 'accepted', 'isConfirmed': true});
 
         print('Reservation $reservationId accepted successfully.');
       } else {
@@ -43,7 +43,29 @@ class ReservationsApi {
     }
   }
 
-  // Future<void> deleteReservation(String reservationId) {
-  //   return _db.collection('reservations').doc(reservationId).delete();
-  // }
+  Future<void> deleteReservation(String reservationId) async {
+    try {
+      // Query the 'bookings' collection where 'id' field matches reservationId
+      QuerySnapshot querySnapshot = await _db
+          .collection('bookings')
+          .where('id', isEqualTo: reservationId)
+          .get();
+
+      // Check if any documents are returned
+      if (querySnapshot.docs.isNotEmpty) {
+        // Get the first matching document reference
+        DocumentReference docRef = querySnapshot.docs.first.reference;
+
+        // Delete the document
+        //await docRef.delete();
+        print(docRef.toString());
+
+        print('Reservation $reservationId deleted successfully.');
+      } else {
+        print('No reservation found with ID: $reservationId');
+      }
+    } catch (e) {
+      print('Failed to delete reservation: $e');
+    }
+  }
 }

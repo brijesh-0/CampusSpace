@@ -72,7 +72,7 @@ class MyEvents extends StatelessWidget {
 
               List<ReservationModel> reservations = snapshot.data!;
               return Column(
-                children: reservations.map((reservation) {
+                children: reservations.map((reservation)  {
                   return MyEvent(
                     eventName: reservation.eventName,
                     time: reservation.dateTimeList[0].startTime,

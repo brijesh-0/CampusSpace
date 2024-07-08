@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'landing.dart';
+import 'package:campus_space/services/authlevel_service.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -32,7 +33,9 @@ class _SignInScreen extends State<SignInScreen> {
       User? user = userCredential.user;
 
       if (user != null) {
-        if (user.email != null && user.email!.endsWith('@bmsce.ac.in')) {
+        //if (user.email != null && user.email!.endsWith('@bmsce.ac.in')) {
+        if (user.email != null && await checkEmail(user.email.toString())) {
+          //await checkEmail(user.email.toString());
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(

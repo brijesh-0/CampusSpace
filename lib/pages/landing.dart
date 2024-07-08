@@ -12,7 +12,7 @@ class LandingPage extends StatefulWidget {
   final String email;
   final Future<void> Function() onSignOut;
 
-  LandingPage({
+  const LandingPage({
     required this.displayName,
     required this.photoUrl,
     required this.onSignOut,
@@ -30,11 +30,6 @@ class _LandingPageState extends State<LandingPage> {
   void _navigateBottomBar(int index) {
     setState(() {
       _selectedIndex = index;
-      // _pageController.animateToPage(
-      //   index,
-      //   duration: const Duration(milliseconds: 300),
-      //   curve: Curves.easeInOut,
-      // );
     });
   }
 
@@ -68,15 +63,6 @@ class _LandingPageState extends State<LandingPage> {
         children: [
           PageTransition(
             child: _pages[_selectedIndex],
-            // PageView(
-            //   controller: _pageController,
-            //   onPageChanged: (index) {
-            //     setState(() {
-            //       _selectedIndex = index;
-            //     });
-            //   },
-            //   children: _pages,
-            // ),
           ),
           Align(
             alignment: Alignment.bottomCenter,

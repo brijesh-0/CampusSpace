@@ -18,13 +18,30 @@ class ReservationsApi {
     return data;
   }
 
-  // Future<void> addReservation(ReservationModel reservation) {
-  //   return _db.collection('reservations').add(reservation.toJson());
-  // }
+  Future<void> acceptReservation(String reservationId) async {
+    try {
+      // Query the collection for the document where 'ID' matches the reservationId
+      QuerySnapshot querySnapshot = await _db
+          .collection('bookings')
+          .where('id', isEqualTo: reservationId)
+          .get();
 
-  // Future<void> updateReservation(String reservationId, ReservationModel reservation) {
-  //   return _db.collection('reservations').doc(reservationId).update(reservation.toJson());
-  // }
+      // Check if any documents are returned
+      if (querySnapshot.docs.isNotEmpty) {
+        // Get the first matching document reference
+        DocumentReference docRef = querySnapshot.docs.first.reference;
+
+        // Update the status field for the matching document
+        await docRef.update({'status': 'accepted'});
+
+        print('Reservation $reservationId accepted successfully.');
+      } else {
+        print('No reservation found with ID: $reservationId');
+      }
+    } catch (e) {
+      print('Failed to accept reservation: $e');
+    }
+  }
 
   // Future<void> deleteReservation(String reservationId) {
   //   return _db.collection('reservations').doc(reservationId).delete();

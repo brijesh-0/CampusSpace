@@ -118,7 +118,7 @@ class _SignInScreen extends State<SignInScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  'assets/campusSpaceLogo.png', // Make sure to add your logo image to the assets folder and update the path
+                  'assets/CampusSpaceLogo4.png', // Make sure to add your logo image to the assets folder and update the path
                   height: 180,
                 ),
                 AnimatedOpacity(

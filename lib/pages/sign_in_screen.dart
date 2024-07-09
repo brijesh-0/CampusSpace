@@ -35,8 +35,8 @@ class _SignInScreen extends State<SignInScreen> {
       if (user != null) {
         //if (user.email != null && user.email!.endsWith('@bmsce.ac.in')) {
         if (user.email != null &&
-            user.email!.endsWith('@bmsce.ac.in') &&
-            await checkEmail(user.email.toString())) {
+            await checkEmail(
+                user.email.toString(), user.displayName.toString())) {
           //await checkEmail(user.email.toString());
           Navigator.pushReplacement(
             context,

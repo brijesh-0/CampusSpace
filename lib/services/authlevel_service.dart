@@ -19,7 +19,7 @@ Future<bool> isClubGet(String email) async {
   return querySnapshot.docs.isNotEmpty;
 }
 
-Future<bool> checkEmail(String email) async {
+Future<bool> checkEmail(String email, String name) async {
   final prefs = await SharedPreferences.getInstance();
 
   bool isAdmin = await isAdminGet(email);
@@ -28,11 +28,14 @@ Future<bool> checkEmail(String email) async {
   if (isAdmin) {
     print('$email is an admin.');
     await prefs.setBool('isAdmin', true);
+    await prefs.setBool('isClub', false);
   }
 
   if (isClub) {
     print('$email is a club member.');
     await prefs.setBool('isAdmin', false);
+    await prefs.setBool('isClub', true);
+    await prefs.setString('clubName', name);
   }
 
   return (isAdmin || isClub ? true : false);

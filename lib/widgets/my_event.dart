@@ -11,17 +11,20 @@ class MyEvent extends StatefulWidget {
   final DateTime endTime;
   final String posterUrl;
   final String reservationId;
+  final String facultyEmail;
+  final String userEmail;
 
-  const MyEvent({
-    super.key,
-    required this.eventName,
-    required this.venue,
-    required this.status,
-    required this.startTime,
-    required this.endTime,
-    required this.posterUrl,
-    required this.reservationId,
-  });
+  const MyEvent(
+      {super.key,
+      required this.eventName,
+      required this.venue,
+      required this.status,
+      required this.startTime,
+      required this.endTime,
+      required this.posterUrl,
+      required this.reservationId,
+      required this.facultyEmail,
+      required this.userEmail});
 
   @override
   State<MyEvent> createState() => _MyEventState();
@@ -88,7 +91,9 @@ class _MyEventState extends State<MyEvent> {
                   const SizedBox(
                     height: 13.0,
                   ),
-                  isAdmin && (widget.status.toLowerCase() != 'accepted')
+                  isAdmin &&
+                          (widget.status.toLowerCase() != 'accepted') &&
+                          (widget.facultyEmail == widget.userEmail)
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

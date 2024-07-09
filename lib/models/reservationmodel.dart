@@ -57,6 +57,7 @@ class Faculty {
 class ReservationModel {
   int attendeeNo;
   String clubName;
+  String clubEmail;
   String contactEmail;
   String contactPerson;
   String contactPhone;
@@ -73,6 +74,7 @@ class ReservationModel {
   ReservationModel({
     required this.attendeeNo,
     required this.clubName,
+    required this.clubEmail,
     required this.contactEmail,
     required this.contactPerson,
     required this.contactPhone,
@@ -91,6 +93,7 @@ class ReservationModel {
     return ReservationModel(
       attendeeNo: json['attendee_no'] ?? 0,
       clubName: json['clubName'] ?? '',
+      clubEmail: json['clubEmail'] ?? '',
       contactEmail: json['contactEmail'] ?? '',
       contactPerson: json['contactPerson'] ?? '',
       contactPhone: json['contactPhone'] ?? '',
@@ -112,6 +115,7 @@ class ReservationModel {
     return {
       'attendee_no': attendeeNo,
       'clubName': clubName,
+      'clubEmail': clubEmail,
       'contactEmail': contactEmail,
       'contactPerson': contactPerson,
       'contactPhone': contactPhone,

@@ -234,8 +234,14 @@ class _BookingFormState extends State<BookingForm> {
 
         dateTimeList.add({
           "date": DateFormat('yyyy-MM-dd').format(date),
-          "start-time": _selectedStartTimes[i]!.format(context),
-          "end-time": _selectedEndTimes[i]!.format(context),
+          "start-time": DateFormat('h:mm a')
+              .format(DateTime(date.year, date.month, date.day,
+                  _selectedStartTimes[i]!.hour, _selectedStartTimes[i]!.minute))
+              .toString(),
+          "end-time": DateFormat('h:mm a')
+              .format(DateTime(date.year, date.month, date.day,
+                  _selectedEndTimes[i]!.hour, _selectedEndTimes[i]!.minute))
+              .toString(),
         });
         //String formattedStartTime = _selectedStartTime!.format(context);
         //String formattedEndTime = _selectedEndTime!.format(context);

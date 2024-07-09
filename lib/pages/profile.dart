@@ -1,3 +1,4 @@
+import 'package:campus_space/pages/helpSupport.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -104,10 +105,14 @@ class Profile extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            _buildSettingItem(Icons.person, 'Profile Settings'),
-            _buildSettingItem(Icons.history, 'Venue History'),
-            _buildSettingItem(Icons.notifications, 'Notifications'),
-            _buildSettingItem(Icons.help, 'Help and Support'),
+            _buildSettingItem(
+                Icons.person, 'Profile Settings', context, () => HelpSupport()),
+            _buildSettingItem(
+                Icons.history, 'Venue History', context, () => HelpSupport()),
+            _buildSettingItem(Icons.notifications, 'Notifications', context,
+                () => HelpSupport()),
+            _buildSettingItem(
+                Icons.help, 'Help and Support', context, () => HelpSupport()),
             const SizedBox(height: 140.0),
             Padding(
               padding: const EdgeInsets.all(20.0),
@@ -135,7 +140,8 @@ class Profile extends StatelessWidget {
     );
   }
 
-  Widget _buildSettingItem(IconData icon, String title) {
+  Widget _buildSettingItem(IconData icon, String title, BuildContext context,
+      Widget Function() pageBuilder) {
     return Container(
       decoration: BoxDecoration(
         border: Border(
@@ -154,7 +160,10 @@ class Profile extends StatelessWidget {
         ),
         trailing: const Icon(Icons.chevron_right, color: Colors.grey),
         onTap: () {
-          // Handle tap for each setting
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => pageBuilder()),
+          );
         },
       ),
     );

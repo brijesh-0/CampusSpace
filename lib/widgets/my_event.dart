@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 
 class MyEvent extends StatefulWidget {
   final String eventName;
+  final String clubName;
   final String venue;
   final String status;
   final DateTime startTime;
@@ -17,6 +18,7 @@ class MyEvent extends StatefulWidget {
   const MyEvent(
       {super.key,
       required this.eventName,
+      required this.clubName,
       required this.venue,
       required this.status,
       required this.startTime,
@@ -82,6 +84,17 @@ class _MyEventState extends State<MyEvent> {
                         style: TextStyle(fontWeight: FontWeight.bold)),
                     Text(widget.eventName),
                   ]),
+                  isAdmin
+                      ? Row(
+                          children: [
+                            const Text(
+                              "Held By: ",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text(widget.clubName),
+                          ],
+                        )
+                      : Container(),
                   Row(children: [
                     const Text("Date: ",
                         style: TextStyle(fontWeight: FontWeight.bold)),

@@ -7,12 +7,14 @@ import 'package:flutter/widgets.dart'; // Import your Venue model class
 class HomePage extends StatefulWidget {
   final String displayName;
   final String photoUrl;
+  final String clubEmail;
 
-  const HomePage({
-    Key? key,
-    required this.displayName,
-    required this.photoUrl,
-  }) : super(key: key);
+  const HomePage(
+      {Key? key,
+      required this.displayName,
+      required this.photoUrl,
+      required this.clubEmail})
+      : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -263,6 +265,7 @@ class _HomePageState extends State<HomePage> {
                     return VenueCard(
                       name: venue.name,
                       displayName: widget.displayName,
+                      clubEmail: widget.clubEmail,
                       capacity: venue.capacity,
                       imageUrl: venue.images,
                       details: venue.details,

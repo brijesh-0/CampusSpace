@@ -5,6 +5,7 @@ import 'package:campus_space/pages/venue_page.dart';
 class VenueCard extends StatelessWidget {
   final String name;
   final String displayName;
+  final String clubEmail;
   final String capacity;
   final List<String> imageUrl;
   final String details;
@@ -14,6 +15,7 @@ class VenueCard extends StatelessWidget {
 
   const VenueCard({
     required this.displayName,
+    required this.clubEmail,
     required this.name,
     required this.capacity,
     required this.amenities,
@@ -33,6 +35,7 @@ class VenueCard extends StatelessWidget {
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => VenueDetailsPage(
                 displayName: displayName,
+                clubEmail: clubEmail,
                 venuename: name,
                 capacity: capacity,
                 images: imageUrl,
@@ -99,6 +102,7 @@ class VenueCard extends StatelessWidget {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => VenueDetailsPage(
                                           displayName: displayName,
+                                          clubEmail: clubEmail,
                                           venuename: name,
                                           capacity: capacity,
                                           images: imageUrl,

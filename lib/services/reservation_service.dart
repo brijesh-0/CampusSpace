@@ -8,7 +8,7 @@ class ReservationsApi {
       {required String email}) async {
     var querySnapshot = await _db
         .collection('bookings')
-        .where('Faculty.email', isEqualTo: email)
+        .where('faculty.email', isEqualTo: email)
         .get();
 
     var data = querySnapshot.docs.map((DocumentSnapshot doc) {
@@ -57,7 +57,7 @@ class ReservationsApi {
         DocumentReference docRef = querySnapshot.docs.first.reference;
 
         // Delete the document
-        //await docRef.delete();
+        await docRef.delete();
         print(docRef.toString());
 
         print('Reservation $reservationId deleted successfully.');

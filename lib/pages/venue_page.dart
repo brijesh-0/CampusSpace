@@ -9,6 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class VenueDetailsPage extends StatefulWidget {
   final String displayName;
+  final String clubEmail;
   final String venuename;
   final String capacity;
   final List<String> images;
@@ -19,6 +20,7 @@ class VenueDetailsPage extends StatefulWidget {
 
   const VenueDetailsPage({
     required this.displayName,
+    required this.clubEmail,
     required this.venuename,
     required this.capacity,
     required this.images,
@@ -233,6 +235,7 @@ class VenueDetailsPageState extends State<VenueDetailsPage> {
                               child: BookingForm(
                                   capacity: widget.capacity,
                                   venuename: widget.venuename,
+                                  clubEmail: widget.clubEmail,
                                   userName: widget.displayName,
                                   faculty: widget.faculty,
                                   bookings: bookings),

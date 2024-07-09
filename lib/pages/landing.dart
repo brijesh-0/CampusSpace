@@ -41,6 +41,7 @@ class _LandingPageState extends State<LandingPage> {
     _pages = [
       HomePage(
         displayName: widget.displayName,
+        clubEmail: widget.email,
         photoUrl: widget.photoUrl,
       ),
       MyEvents(

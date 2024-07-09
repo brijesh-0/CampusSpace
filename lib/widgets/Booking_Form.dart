@@ -12,6 +12,7 @@ var uuid = const Uuid();
 
 class BookingForm extends StatefulWidget {
   final String userName;
+  final String clubEmail;
   final String venuename;
   final String capacity;
   final List<Booking> bookings;
@@ -21,6 +22,7 @@ class BookingForm extends StatefulWidget {
       {required this.venuename,
       required this.capacity,
       required this.userName,
+      required this.clubEmail,
       required this.bookings,
       required this.faculty,
       super.key});
@@ -243,6 +245,7 @@ class _BookingFormState extends State<BookingForm> {
       await _firestore.collection('bookings').add({
         'id': uuid.v4(),
         'clubName': widget.userName,
+        'clubEmail': widget.clubEmail,
         'eventName': _eventName,
         'eventDescription': _eventDescription,
         'venuename': widget.venuename,

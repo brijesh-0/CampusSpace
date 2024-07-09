@@ -13,7 +13,7 @@ Future<bool> isAdminGet(String email) async {
 Future<bool> isClubGet(String email) async {
   final querySnapshot = await FirebaseFirestore.instance
       .collection("clubs")
-      .where('email', isEqualTo: email)
+      .where('Email', isEqualTo: email)
       .get();
 
   return querySnapshot.docs.isNotEmpty;

@@ -93,22 +93,24 @@ class _MyEventsState extends State<MyEvents> {
                   children: reservations
                       .where((reservation) =>
                           reservation.dateTimeList.isNotEmpty &&
-                          reservation.dateTimeList[0].startDateTime
-                              .isAfter(DateTime.now()))
-                      .map((reservation) {
-                    return MyEvent(
-                      eventName: reservation.eventName,
-                      startTime: reservation.dateTimeList[0].startDateTime,
-                      endTime: reservation.dateTimeList[0].endDateTime,
-                      venue: reservation.venueName,
-                      status: reservation.status,
-                      posterUrl: reservation.posterUrl ??
-                          "https://t4.ftcdn.net/jpg/04/00/24/31/360_F_400243185_BOxON3h9avMUX10RsDkt3pJ8iQx72kS3.jpg",
-                      reservationId: reservation.id,
-                      facultyEmail: reservation.faculty.email,
-                      userEmail: widget.email,
-                    );
-                  }).toList(),
+                          reservation.dateTimeList.any((dateTime) =>
+                              dateTime.startDateTime.isAfter(DateTime.now())))
+                      .expand((reservation) => reservation.dateTimeList
+                          .where((dateTime) =>
+                              dateTime.startDateTime.isAfter(DateTime.now()))
+                          .map((dateTime) => MyEvent(
+                                eventName: reservation.eventName,
+                                startTime: dateTime.startDateTime,
+                                endTime: dateTime.endDateTime,
+                                venue: reservation.venueName,
+                                status: reservation.status,
+                                posterUrl: reservation.posterUrl ??
+                                    "https://t4.ftcdn.net/jpg/04/00/24/31/360_F_400243185_BOxON3h9avMUX10RsDkt3pJ8iQx72kS3.jpg",
+                                reservationId: reservation.id,
+                                facultyEmail: reservation.faculty.email,
+                                userEmail: widget.email,
+                              )))
+                      .toList(),
                 );
               },
             ),

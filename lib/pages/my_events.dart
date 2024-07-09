@@ -114,6 +114,7 @@ class _MyEventsState extends State<MyEvents> {
                 );
               },
             ),
+            const SizedBox(height: 40),
           ],
         ),
       ),

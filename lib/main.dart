@@ -11,7 +11,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
               displayName: args['displayName']!,
               photoUrl: args['photoUrl']!,
               onSignOut: args['onSignOut'] as Future<void> Function(),
+              email: args['email']!,
             ),
           );
         }
@@ -53,7 +54,7 @@ class AuthGate extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(
+          return const Scaffold(
             body: Center(
               child: CircularProgressIndicator(),
             ),
@@ -63,10 +64,11 @@ class AuthGate extends StatelessWidget {
           return LandingPage(
             displayName: user?.displayName ?? 'No Name',
             photoUrl: user?.photoURL ?? '',
+            email: user?.email ?? '',
             onSignOut: _signOut,
           );
         } else {
-          return SignInScreen();
+          return const SignInScreen();
         }
       },
     );

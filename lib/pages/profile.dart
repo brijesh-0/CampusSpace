@@ -74,7 +74,7 @@ class Profile extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15.0),
         child: ListView(
-          children: [
+          children: <Widget>[
             const Padding(
                 padding: EdgeInsets.only(left: 4.0, top: 65.0),
                 child: Row(
@@ -121,11 +121,13 @@ class Profile extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            Text(
-              "Welcome $displayName!",
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+            Center(
+              child: Text(
+                "Welcome " + displayName + "!",
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             const SizedBox(height: 30),
@@ -156,6 +158,7 @@ class Profile extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(height: 110),
           ],
         ),
       ),

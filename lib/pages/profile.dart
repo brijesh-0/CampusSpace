@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:campus_space/widgets/venue_history_screen.dart';
+import 'package:intl/intl.dart';
 
 class Profile extends StatelessWidget {
   final String displayName;
@@ -27,25 +30,50 @@ class Profile extends StatelessWidget {
     }
   }
 
+  Future<List<Map<String, dynamic>>> fetchPastBookings() async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      return [];
+    }
+
+    final bookingsQuery = await FirebaseFirestore.instance
+        .collection('bookings')
+        .where('contactEmail', isEqualTo: user.email)
+        .get();
+
+    List<Map<String, dynamic>> pastBookings = [];
+    DateFormat dateFormat = DateFormat('yyyy-MM-dd h:mm a');
+
+    for (var doc in bookingsQuery.docs) {
+      var booking = doc.data();
+      List<dynamic> dateTimeList = booking['dateTimeList'];
+
+      bool hasPastBooking = dateTimeList.any((dateTime) {
+        try {
+          DateTime endTime = dateFormat.parse('${dateTime['date']} ${dateTime['end-time']}');
+          return endTime.isBefore(DateTime.now());
+        } catch (e) {
+          print('Error parsing date: $e');
+          return false;
+        }
+      });
+
+      if (hasPastBooking) {
+        pastBookings.add(booking);
+      }
+    }
+
+    return pastBookings;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      /*appBar: AppBar(
-        title: const Text(
-          'My Profile',
-          style: TextStyle(
-            fontSize: 24.0,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.black),
-      ),*/
       body: Padding(
         padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15.0),
-        child: Column(
+        child: ListView(
           children: [
             const Padding(
                 padding: EdgeInsets.only(left: 4.0, top: 65.0),
@@ -60,8 +88,7 @@ class Profile extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 28.0,
                               fontWeight: FontWeight.bold,
-                              color:
-                                  Colors.black, // Default color for 'Find Your'
+                              color: Colors.black,
                             ),
                           ),
                           TextSpan(
@@ -69,7 +96,7 @@ class Profile extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 30.0,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF0066FF), // Color for 'Venue'
+                              color: Color(0xFF0066FF),
                             ),
                           ),
                         ],
@@ -95,28 +122,31 @@ class Profile extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Text(
-              "Welcome " + displayName + "!",
+              "Welcome $displayName!",
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 30),
-            _buildSettingItem(Icons.person, 'Profile Settings'),
-            _buildSettingItem(Icons.history, 'Venue History'),
-            _buildSettingItem(Icons.notifications, 'Notifications'),
-            _buildSettingItem(Icons.help, 'Help and Support'),
+            _buildSettingItem(Icons.person, 'Profile Settings', () {}),
+            _buildSettingItem(Icons.history, 'Venue History', () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => VenueHistoryScreen(fetchPastBookings: fetchPastBookings)),
+              );
+            }),
+            _buildSettingItem(Icons.notifications, 'Notifications', () {}),
+            _buildSettingItem(Icons.help, 'Help and Support', () {}),
             const SizedBox(height: 140.0),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: ElevatedButton.icon(
                 onPressed: () async {
-                  await _signOut(
-                      context); // Call the function to sign out the user
+                  await _signOut(context);
                 },
                 icon: const Icon(Icons.logout, color: Colors.white),
-                label:
-                    const Text('Logout', style: TextStyle(color: Colors.white)),
+                label: const Text('Logout', style: TextStyle(color: Colors.white)),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color.fromARGB(255, 218, 48, 48),
                   minimumSize: const Size(double.infinity, 50),
@@ -132,14 +162,13 @@ class Profile extends StatelessWidget {
     );
   }
 
-  Widget _buildSettingItem(IconData icon, String title) {
+  Widget _buildSettingItem(IconData icon, String title, VoidCallback onTap) {
     return Container(
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: const Color.fromARGB(255, 121, 121, 121)
-                .withOpacity(0.5), // Choose your border color
-            width: 0.5, // Choose the width of the border
+            color: const Color.fromARGB(255, 121, 121, 121).withOpacity(0.5),
+            width: 0.5,
           ),
         ),
       ),
@@ -150,9 +179,7 @@ class Profile extends StatelessWidget {
           style: const TextStyle(fontWeight: FontWeight.w500),
         ),
         trailing: const Icon(Icons.chevron_right, color: Colors.grey),
-        onTap: () {
-          // Handle tap for each setting
-        },
+        onTap: onTap,
       ),
     );
   }

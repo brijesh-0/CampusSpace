@@ -82,9 +82,32 @@ class VenueDetailsPageState extends State<VenueDetailsPage> {
                   ),
                   const SizedBox(height: 3),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(Icons.location_pin, size: 18.0),
+                              const Padding(
+                                  padding: EdgeInsets.only(right: 5.0)),
+                              Text(widget.location),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              const Icon(Icons.email, size: 18.0),
+                              const Padding(
+                                  padding: EdgeInsets.only(right: 5.0)),
+                              Text(widget.faculty['email']),
+                            ],
+                          ),
+                          
+                          
+                        ],
+                      ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -98,33 +121,14 @@ class VenueDetailsPageState extends State<VenueDetailsPage> {
                           ),
                           Row(
                             children: [
-                              const Icon(Icons.location_pin, size: 18.0),
-                              const Padding(
-                                  padding: EdgeInsets.only(right: 5.0)),
-                              Text(widget.location),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
                               const Icon(Icons.person, size: 18.0),
                               const Padding(
                                   padding: EdgeInsets.only(right: 5.0)),
                               Text(widget.faculty['name']),
                             ],
                           ),
-                          Row(
-                            children: [
-                              const Icon(Icons.email, size: 18.0),
-                              const Padding(
-                                  padding: EdgeInsets.only(right: 5.0)),
-                              Text(widget.faculty['email']),
-                            ],
-                          )
+                          
+                          
                         ],
                       )
                     ],

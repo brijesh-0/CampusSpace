@@ -1,3 +1,4 @@
+import 'package:campus_space/pages/helpSupport.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -133,21 +134,13 @@ class Profile extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            _buildSettingItem(Icons.history, 'Venue History', () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => VenueHistoryScreen(
-                        fetchPastBookings: fetchPastBookings)),
-              );
-            }),
-            _buildSettingItem(Icons.notifications, 'Notifications', () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => NotificationsScreen()),
-              );
-            }),
-            _buildSettingItem(Icons.help, 'Help and Support', () {}),
+            _buildSettingItem(Icons.history, 'Venue History', context, () =>VenueHistoryScreen(fetchPastBookings: fetchPastBookings)
+            
+            ),
+            _buildSettingItem(Icons.notifications, 'Notifications', context, () =>NotificationsScreen()
+           
+            ),
+            _buildSettingItem(Icons.help, 'Help and Support',context,()=>HelpSupport()),
             const SizedBox(height: 140.0),
             Padding(
               padding: const EdgeInsets.all(20.0),
@@ -174,7 +167,8 @@ class Profile extends StatelessWidget {
     );
   }
 
-  Widget _buildSettingItem(IconData icon, String title, VoidCallback onTap) {
+  Widget _buildSettingItem(IconData icon, String title, BuildContext context,
+      Widget Function() pageBuilder) {
     return Container(
       decoration: BoxDecoration(
         border: Border(
@@ -191,7 +185,12 @@ class Profile extends StatelessWidget {
           style: const TextStyle(fontWeight: FontWeight.w500),
         ),
         trailing: const Icon(Icons.chevron_right, color: Colors.grey),
-        onTap: onTap,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => pageBuilder()),
+          );
+        },
       ),
     );
   }

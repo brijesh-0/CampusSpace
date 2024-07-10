@@ -100,6 +100,7 @@ class _MyEventsState extends State<MyEvents> {
                               dateTime.startDateTime.isAfter(DateTime.now()))
                           .map((dateTime) => MyEvent(
                                 eventName: reservation.eventName,
+                                clubName: reservation.clubName,
                                 startTime: dateTime.startDateTime,
                                 endTime: dateTime.endDateTime,
                                 venue: reservation.venueName,

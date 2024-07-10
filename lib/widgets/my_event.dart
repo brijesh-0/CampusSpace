@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 
 class MyEvent extends StatefulWidget {
   final String eventName;
+  final String clubName;
   final String venue;
   final String status;
   final DateTime startTime;
@@ -17,6 +18,7 @@ class MyEvent extends StatefulWidget {
   const MyEvent(
       {super.key,
       required this.eventName,
+      required this.clubName,
       required this.venue,
       required this.status,
       required this.startTime,
@@ -82,6 +84,17 @@ class _MyEventState extends State<MyEvent> {
                         style: TextStyle(fontWeight: FontWeight.bold)),
                     Text(widget.eventName),
                   ]),
+                  isAdmin
+                      ? Row(
+                          children: [
+                            const Text(
+                              "Held By: ",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text(widget.clubName),
+                          ],
+                        )
+                      : Container(),
                   Row(children: [
                     const Text("Date: ",
                         style: TextStyle(fontWeight: FontWeight.bold)),
@@ -143,14 +156,60 @@ class _MyEventState extends State<MyEvent> {
                                         fontWeight: FontWeight.w400),
                                   )),
                             ])
-                      : (widget.status.toLowerCase() != 'accepted')
-                          ? const Text(
-                              'Status Pending ',
-                              style: TextStyle(
-                                  fontStyle: FontStyle.italic,
-                                  color: Color(0xFF0066FF)),
-                            )
-                          : const SizedBox(width: 0, height: 0),
+                      : Container(
+                          child: (widget.status.toLowerCase() != 'accepted')
+                              ? const Text(
+                                  'Status Pending ',
+                                  style: TextStyle(
+                                      fontStyle: FontStyle.italic,
+                                      color: Color(0xFF0066FF)),
+                                )
+                              : 
+                              Container(
+                                height: 35,
+                                width: 35,
+                                alignment: Alignment.centerRight,
+                                padding: EdgeInsets.all(0.1),
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: IconButton(
+                                  icon: Icon(Icons.delete,
+                                      color: Colors.white, size: 17.0),
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text('Cancel Reservation'),
+                                          content: Text(
+                                              'Are you sure you want to cancel this reservation? This action cannot be undone.'),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              child: Text('No'),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                            TextButton(
+                                              child: Text('Yes'),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                                ReservationsApi()
+                                                    .deleteReservation(
+                                                        widget
+                                                            .reservationId);
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
+                        ),
                   //Text(isAdmin.toString()),
                 ],
               ),

@@ -4,19 +4,25 @@ import 'package:campus_space/models/reservationmodel.dart';
 class ReservationsApi {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  Future<List<ReservationModel>> fetchReservations({required String email}) async {
+  Future<List<ReservationModel>> fetchReservations(
+      {required String email}) async {
+    // First query for 'faculty.email'
     var querySnapshot1 = await _db
         .collection('bookings')
         .where('faculty.email', isEqualTo: email)
         .get();
-    
+
+    // Second query for 'clubEmail'
     var querySnapshot2 = await _db
         .collection('bookings')
         .where('clubEmail', isEqualTo: email)
         .get();
-    
+
+    // Combine the results of both queries
     var allDocs = querySnapshot1.docs + querySnapshot2.docs;
-    var uniqueDocs = allDocs.toSet().toList();
+
+    // Remove duplicates
+    var uniqueDocs = {for (var doc in allDocs) doc.id: doc}.values.toList();
 
     var data = uniqueDocs.map((DocumentSnapshot doc) {
       return ReservationModel.fromJson(doc.data() as Map<String, dynamic>);

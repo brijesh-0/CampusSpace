@@ -56,14 +56,29 @@ class _CalendarScreenState extends State<CalendarScreen> {
         child: MonthView(
           minMonth: DateTime.now(),
           onCellTap: (events, date) {
-            print(date);
-            //print(bookings);
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => DayViewScreen(date: date, bookings: bookings),
-              ),
-            );
+            events.isNotEmpty
+                ? {
+                    //print(date);
+                    //print(bookings);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) =>
+                            DayViewScreen(date: date, bookings: bookings),
+                      ),
+                    ),
+                  }
+                : {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        behavior: SnackBarBehavior.floating,
+                        content: Text('No Events on that day!'),
+                        duration: Duration(milliseconds: 1200),
+                        shape: StadiumBorder(side: BorderSide.none),
+                        margin: EdgeInsetsDirectional.all(15),
+                      ),
+                    ),
+                  };
           },
         ),
       ),

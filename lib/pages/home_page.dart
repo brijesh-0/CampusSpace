@@ -236,9 +236,8 @@ class _HomePageState extends State<HomePage> {
             ),
             const SizedBox(height: 0.0),
             StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection('testvenues')
-                  .snapshots(),
+              stream:
+                  FirebaseFirestore.instance.collection('testvenues').snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {

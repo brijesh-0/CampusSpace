@@ -82,8 +82,8 @@ class VenueDetailsPageState extends State<VenueDetailsPage> {
                   ),
                   const SizedBox(height: 3),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,8 +104,6 @@ class VenueDetailsPageState extends State<VenueDetailsPage> {
                               Text(widget.faculty['email']),
                             ],
                           ),
-                          
-                          
                         ],
                       ),
                       Column(
@@ -127,8 +125,6 @@ class VenueDetailsPageState extends State<VenueDetailsPage> {
                               Text(widget.faculty['name']),
                             ],
                           ),
-                          
-                          
                         ],
                       )
                     ],

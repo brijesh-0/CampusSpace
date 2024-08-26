@@ -164,59 +164,68 @@ class _MyEventState extends State<MyEvent> {
                                       fontStyle: FontStyle.italic,
                                       color: Color(0xFF0066FF)),
                                 )
-                              : Container(
-                                  height: 35,
-                                  width: 35,
-                                  alignment: Alignment.centerRight,
-                                  padding: EdgeInsets.all(0.1),
-                                  decoration: BoxDecoration(
-                                    color: Colors.red,
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  child: IconButton(
-                                    icon: Icon(Icons.delete,
-                                        color: Colors.white, size: 17.0),
-                                    onPressed: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            backgroundColor: Color.fromARGB(
-                                                255, 255, 255, 255),
-                                            title: Text('Cancel Reservation'),
-                                            content: Text(
-                                                'Are you sure you want to cancel this reservation? This action cannot be undone.'),
-                                            actions: <Widget>[
-                                              TextButton(
-                                                child: Text(
-                                                  'No',
-                                                  style: const TextStyle(
-                                                      color: Color(0xFF0066FF)),
-                                                ),
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                              ),
-                                              TextButton(
-                                                child: const Text(
-                                                  'Yes',
-                                                  style: TextStyle(
-                                                      color: Color(0xFF0066FF)),
-                                                ),
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                  ReservationsApi()
-                                                      .deleteReservation(
-                                                          widget.reservationId);
-                                                },
-                                              ),
-                                            ],
+                              : isAdmin
+                                  ? const SizedBox()
+                                  : Container(
+                                      height: 35,
+                                      width: 35,
+                                      alignment: Alignment.centerRight,
+                                      padding: EdgeInsets.all(0.1),
+                                      decoration: BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                      child: IconButton(
+                                        icon: Icon(Icons.delete,
+                                            color: Colors.white, size: 17.0),
+                                        onPressed: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                backgroundColor: Color.fromARGB(
+                                                    255, 255, 255, 255),
+                                                title:
+                                                    Text('Cancel Reservation'),
+                                                content: Text(
+                                                    'Are you sure you want to cancel this reservation? This action cannot be undone.'),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    child: Text(
+                                                      'No',
+                                                      style: const TextStyle(
+                                                          color: Color(
+                                                              0xFF0066FF)),
+                                                    ),
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                  ),
+                                                  TextButton(
+                                                    child: const Text(
+                                                      'Yes',
+                                                      style: TextStyle(
+                                                          color: Color(
+                                                              0xFF0066FF)),
+                                                    ),
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                      ReservationsApi()
+                                                          .deleteReservation(
+                                                              widget
+                                                                  .reservationId);
+                                                    },
+                                                  ),
+                                                ],
+                                              );
+                                            },
                                           );
                                         },
-                                      );
-                                    },
-                                  ),
-                                ),
+                                      ),
+                                    ),
                         ),
                   //Text(isAdmin.toString()),
                 ],

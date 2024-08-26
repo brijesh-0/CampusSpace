@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -337,11 +338,20 @@ class VenueDetailsPageState extends State<VenueDetailsPage> {
   Widget buildImage(String imgPath, int index) {
     return Container(
       color: Colors.grey,
-      child: Image.network(
-        imgPath,
-        fit: BoxFit.cover,
-        width: double.infinity,
+      child: CachedNetworkImage(
+        imageUrl: imgPath,
+        imageBuilder: (context, imageProvider) => FittedBox(
+          fit: BoxFit.cover,
+          child: Container(
+            width: double.infinity,
+          ),
+        ),
       ),
+      // Image.network(
+      //   imgPath,
+      //   fit: BoxFit.cover,
+      //   width: double.infinity,
+      // ),
     );
   }
 

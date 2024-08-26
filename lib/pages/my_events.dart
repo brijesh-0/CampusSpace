@@ -41,14 +41,14 @@ class _MyEventsState extends State<MyEvents> {
                   const Text.rich(
                     TextSpan(
                       children: [
-                        TextSpan(
-                          text: 'My ',
-                          style: TextStyle(
-                            fontSize: 28.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
+                        // TextSpan(
+                        //   text: 'My ',
+                        //   style: TextStyle(
+                        //     fontSize: 28.0,
+                        //     fontWeight: FontWeight.bold,
+                        //     color: Colors.black,
+                        //   ),
+                        // ),
                         TextSpan(
                           text: 'Reservations',
                           style: TextStyle(

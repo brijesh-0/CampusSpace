@@ -170,31 +170,31 @@ class _MyEventState extends State<MyEvent> {
                                       height: 35,
                                       width: 35,
                                       alignment: Alignment.centerRight,
-                                      padding: EdgeInsets.all(0.1),
+                                      padding: const EdgeInsets.all(0.1),
                                       decoration: BoxDecoration(
                                         color: Colors.red,
                                         borderRadius:
                                             BorderRadius.circular(8.0),
                                       ),
                                       child: IconButton(
-                                        icon: Icon(Icons.delete,
+                                        icon: const Icon(Icons.delete,
                                             color: Colors.white, size: 17.0),
                                         onPressed: () {
                                           showDialog(
                                             context: context,
                                             builder: (BuildContext context) {
                                               return AlertDialog(
-                                                backgroundColor: Color.fromARGB(
+                                                backgroundColor: const Color.fromARGB(
                                                     255, 255, 255, 255),
                                                 title:
-                                                    Text('Cancel Reservation'),
-                                                content: Text(
+                                                    const Text('Cancel Reservation'),
+                                                content: const Text(
                                                     'Are you sure you want to cancel this reservation? This action cannot be undone.'),
                                                 actions: <Widget>[
                                                   TextButton(
-                                                    child: Text(
+                                                    child: const Text(
                                                       'No',
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                           color: Color(
                                                               0xFF0066FF)),
                                                     ),

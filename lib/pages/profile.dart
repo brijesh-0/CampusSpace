@@ -79,7 +79,7 @@ class Profile extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             const Padding(
-                padding: EdgeInsets.only(left: 4.0, top: 65.0),
+                padding: EdgeInsets.only(left: 4.0, top: 20.0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -134,13 +134,12 @@ class Profile extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            _buildSettingItem(Icons.history, 'Venue History', context, () =>VenueHistoryScreen(fetchPastBookings: fetchPastBookings)
-            
-            ),
-            _buildSettingItem(Icons.notifications, 'Notifications', context, () =>NotificationsScreen()
-           
-            ),
-            _buildSettingItem(Icons.help, 'Help and Support',context,()=>HelpSupport()),
+            _buildSettingItem(Icons.history, 'Venue History', context,
+                () => VenueHistoryScreen(fetchPastBookings: fetchPastBookings)),
+            _buildSettingItem(Icons.notifications, 'Notifications', context,
+                () => NotificationsScreen()),
+            _buildSettingItem(
+                Icons.help, 'Help and Support', context, () => HelpSupport()),
             const SizedBox(height: 140.0),
             Padding(
               padding: const EdgeInsets.all(20.0),

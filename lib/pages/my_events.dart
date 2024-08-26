@@ -85,7 +85,11 @@ class _MyEventsState extends State<MyEvents> {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 }
                 if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return const Center(child: Text('No reservations found.'));
+                  return const Center(
+                    child: Text(
+                      'No reservations found',
+                    ),
+                  );
                 }
 
                 reservations = snapshot.data!;

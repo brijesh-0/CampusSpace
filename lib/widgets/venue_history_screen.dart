@@ -9,13 +9,14 @@ class VenueHistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: RichText(
           text: const TextSpan(
             children: [
               TextSpan(
                 text: 'Venue ',
                 style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: 26.0,
                   fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ),
@@ -23,7 +24,7 @@ class VenueHistoryScreen extends StatelessWidget {
               TextSpan(
                 text: 'History',
                 style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: 28.0,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF0066FF),
                 ),
@@ -40,7 +41,7 @@ class VenueHistoryScreen extends StatelessWidget {
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('No past bookings found.'));
+            return const Center(child: Text('No past bookings found'));
           } else {
             final bookings = snapshot.data!;
             return ListView.builder(

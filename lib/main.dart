@@ -23,9 +23,17 @@ void main() async {
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-  // Print the FCM token for testing purposes
-  String? token = await messaging.getToken();
-  print('FCM Token: $token');
+  /*String? token = await messaging.getToken();
+  if (token != null) {
+    print('FCM Token: $token');
+    await saveTokenToDatabase(token);
+  } else {
+    print("NO TOKEN!");
+  }
+  FirebaseMessaging.instance.onTokenRefresh.listen((newToken) async {
+    print('FCM Token Refreshed: $newToken');
+    await saveTokenToDatabase(newToken);
+  });*/
 
   runApp(const MyApp());
 }
@@ -92,6 +100,29 @@ class AuthGate extends StatelessWidget {
     await FirebaseAuth.instance.signOut();
   }
 
+  Future<void> _saveTokenToDatabase(User user) async {
+    try {
+      String? token = await FirebaseMessaging.instance.getToken();
+      if (token != null) {
+        // Query Firestore to find the document where the user's email exists
+        QuerySnapshot snapshot = await FirebaseFirestore.instance
+            .collection('clubs')
+            .where('Email', isEqualTo: user.email)
+            .get();
+
+        if (snapshot.docs.isNotEmpty) {
+          // If a document exists, update the fcmToken
+          DocumentReference userDocRef = snapshot.docs.first.reference;
+          await userDocRef.update({'fcmToken': token});
+
+          print('FCM Token updated successfully for user: ${user.email}');
+        }
+      }
+    } catch (e) {
+      print('Failed to save FCM token: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
@@ -106,6 +137,10 @@ class AuthGate extends StatelessWidget {
           );
         } else if (snapshot.hasData) {
           User? user = snapshot.data;
+
+          if (user != null) {
+            _saveTokenToDatabase(user); // Save FCM token after login
+          }
           return LandingPage(
             displayName: user?.displayName ?? 'No Name',
             photoUrl: user?.photoURL ?? '',

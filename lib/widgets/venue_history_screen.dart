@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class VenueHistoryScreen extends StatelessWidget {
   final Future<List<Map<String, dynamic>>> Function() fetchPastBookings;
 
-  const VenueHistoryScreen({required this.fetchPastBookings});
+  const VenueHistoryScreen({super.key, required this.fetchPastBookings});
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,10 @@ class VenueHistoryScreen extends StatelessWidget {
                 return ListTile(
                   leading: GestureDetector(
                     onTap: () {
-                      _showPosterDialog(context, booking['poster_url']);
+                      _showPosterDialog(
+                          context,
+                          booking['poster_url'] ??
+                              "https://t4.ftcdn.net/jpg/04/00/24/31/360_F_400243185_BOxON3h9avMUX10RsDkt3pJ8iQx72kS3.jpg");
                     },
                     child: Container(
                       width: 80,
@@ -59,7 +62,8 @@ class VenueHistoryScreen extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
-                          image: NetworkImage(booking['poster_url']),
+                          image: NetworkImage(booking['poster_url'] ??
+                              "https://t4.ftcdn.net/jpg/04/00/24/31/360_F_400243185_BOxON3h9avMUX10RsDkt3pJ8iQx72kS3.jpg"),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -67,7 +71,7 @@ class VenueHistoryScreen extends StatelessWidget {
                   ),
                   title: Text(booking['eventName']),
                   subtitle: Text('Venue: ${booking['venuename']}\n'
-                      'End Time: ${dateTime['end-time']}'),
+                      'End Time: ${dateTime['date']} - ${dateTime['end-time']}'),
                 );
               },
             );

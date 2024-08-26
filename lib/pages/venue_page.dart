@@ -337,22 +337,25 @@ class VenueDetailsPageState extends State<VenueDetailsPage> {
 
   Widget buildImage(String imgPath, int index) {
     return Container(
-      color: Colors.grey,
-      child: CachedNetworkImage(
-        imageUrl: imgPath,
-        imageBuilder: (context, imageProvider) => FittedBox(
-          fit: BoxFit.cover,
-          child: Container(
-            width: double.infinity,
+        color: Colors.grey,
+        child: CachedNetworkImage(
+          imageUrl: imgPath,
+          imageBuilder: (context, imageProvider) => Container(
+            //width: double.infinity,
+            height: 190,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
-        ),
-      ),
-      // Image.network(
-      //   imgPath,
-      //   fit: BoxFit.cover,
-      //   width: double.infinity,
-      // ),
-    );
+        ));
+    // Image.network(
+    //   imgPath,
+    //   fit: BoxFit.cover,
+    //   width: double.infinity,
+    // ),
   }
 
   Widget buildIndicator(int count) {

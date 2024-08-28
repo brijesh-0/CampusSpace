@@ -423,17 +423,18 @@ class _BookingFormState extends State<BookingForm> {
                 //title:
                 Row(
                   children: [
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: const Expanded(
-                        child: Icon(Icons.calendar_today),
+                    Icon(Icons.calendar_today),
+                    const SizedBox(width: 18),
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        child: const Text('Number of Days for Reservation:'),
                       ),
                     ),
-                    const SizedBox(width: 15),
-                    const Text('Number of Days for Reservation:'),
+                    // const Text('Number of Days for Reservation:'),
+                    //const SizedBox(width: 35),
                     //const SizedBox(width: 5),
-                    Expanded(
-                        child: Container(
+                    Container(
                       alignment: Alignment.centerRight,
                       child: DropdownButton<int>(
                         value: _numberOfDays,
@@ -455,7 +456,7 @@ class _BookingFormState extends State<BookingForm> {
                           });
                         },
                       ),
-                    )),
+                    ),
                   ],
                 ),
                 //),

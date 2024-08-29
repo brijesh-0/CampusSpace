@@ -5,11 +5,11 @@ CampusSpace is a venue booking application developed to cater to the specific ne
 ## Table of Contents
 
 - [CampusSpace](#campusspace)
-	- [Table of Contents](#table-of-contents)
-	- [Introduction](#introduction)
-	- [Features](#features)
-	- [Screenshots](#screenshots)
-	- [Acknowledgements](#acknowledgements)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Features](#features)
+  - [Screenshots](#screenshots)
+  - [Acknowledgements](#acknowledgements)
 
 ## Introduction
 
@@ -44,4 +44,4 @@ Team Members contributing to this project:
 - [Ayman Khan](https://github.com/AymanKhan9)
 - [Gurrala Naga Pragnathmik](https://github.com/starlord-9)
 
-Logo Design by: [Aishwarya Kathasagaram](https://github.com/aish-kathasagaram)
+Logo Design by: [Aishwarya Kathasagaram](https://github.com/aish-kathasagaram) 

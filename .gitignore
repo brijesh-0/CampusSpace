@@ -75,6 +75,13 @@ unlinked_spec.ds
 **/android/key.properties
 *.jks
 
+# Firebase Related
+
+firebase.json
+campusspace-44c0-firebase-adminsdk-1i5u8-095c0fbe3a.json
+lib/firebase_options.dart
+android/app/google-services.json
+
 # iOS/XCode related
 **/ios/**/*.mode1v3
 **/ios/**/*.mode2v3
@@ -135,3 +142,4 @@ app.*.symbols
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 !/dev/ci/**/Gemfile.lock
+
